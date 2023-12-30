@@ -24,7 +24,6 @@
 ;;高亮当前行(global-hl-line-mode 0)
 
 
-
-
-
+;;主题
 (load-theme 'deeper-blue' 1)
+
