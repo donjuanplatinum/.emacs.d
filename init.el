@@ -18,8 +18,5 @@
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
 ;;自动替换选择区内容
-(delete-selection-mode 1)
-
-
 
 
