@@ -21,3 +21,10 @@
 (delete-selection-mode 1)
 
 
+;;高亮当前行(global-hl-line-mode 0)
+
+
+
+
+
+(load-theme 'deeper-blue' 1)
