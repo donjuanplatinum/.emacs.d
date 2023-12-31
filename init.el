@@ -31,21 +31,43 @@
 (require 'repo)
 
 
-;;package-install
-(package-install 'use-package)
+
+;;sdcv
+(package-install 'sdcv)
+(require 'sdcv)
+(global-set-key (kbd "C-c d") 'sdcv-search-pointer)
+
+
+;;dashboard
+(package-install 'dashboard)
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+;; Set the title
+(setq dashboard-banner-logo-title "Donjuan Platinum")
+;; Set the banner
+(setq dashboard-startup-banner "~/.emacs.d/donjuan.png")
+;; Value can be
+;; - nil to display no banner
+;; - 'official which displays the official emacs logo
+;; - 'logo which displays an alternative emacs logo
+;; - 1, 2 or 3 which displays one of the text banners
+;; - "path/to/your/image.gif", "path/to/your/image.png", "path/to/your/text.txt" or "path/to/your/image.xbm" which displays whatever gif/image/text/xbm you would prefer
+;; - a cons of '("path/to/your/image.png" . "path/to/your/text.txt")
+
+;; Content is not centered by default. To center, set
+(setq dashboard-center-content t)
+
+;; To disable shortcut "jump" indicators for each section, set
+(setq dashboard-show-shortcuts nil)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(sdcv use-package)))
+ '(package-selected-packages '(sdcv dashboard)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(package-install 'sdcv)
-(require 'sdcv)
-(global-set-key (kbd "C-c d") 'sdcv-search-pointer)
