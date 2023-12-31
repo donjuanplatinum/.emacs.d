@@ -31,11 +31,6 @@
 (require 'repo)
 
 
-(use-package maple-translate
-  :ensure nil
-  :commands (maple-translate maple-translate+)
-  )
-
 ;;package-install
 (package-install 'use-package)
 (custom-set-variables
@@ -43,7 +38,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(use-package)))
+ '(package-selected-packages '(sdcv use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -51,7 +46,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-
-;;maple-translate
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/site-lisp/maple-translate/"))
-(require 'maple-translate-sdcv)
+(package-install 'sdcv)
+(require 'sdcv)
+(global-set-key (kbd "C-c d") 'sdcv-search-pointer)
