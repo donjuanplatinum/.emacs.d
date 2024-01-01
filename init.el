@@ -35,7 +35,7 @@
 ;;sdcv
 (package-install 'sdcv)
 (require 'sdcv)
-(global-set-key (kbd "C-c d") 'sdcv-search-pointer)
+(global-set-key (kbd "C-c d") 'sdcv-search-pointer+)
 
 
 ;;dashboard
