@@ -1,6 +1,10 @@
 ;;关闭提示音
 (setq ring-bell-function 'ignore)
 
+;;显示行号
+(global-display-line-numbers-mode 'open)
+
+
 ;;关闭自动备份~文件
 (setq make-backup-files nil)
 (setq auto-save-default nil)
