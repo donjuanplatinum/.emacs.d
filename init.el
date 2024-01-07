@@ -1,3 +1,5 @@
+
+
 ;;关闭提示音
 (setq ring-bell-function 'ignore)
 
@@ -16,7 +18,7 @@
 ;;最近文件
 (require 'recentf)
 (recentf-mode 1)
-(setq recentf-max-menu-item 10)
+(setq recentf-max-menu-item 20)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
 ;;自动替换选择区内容
@@ -73,18 +75,38 @@
 ;;rust
 (package-install 'rust-mode)
 
+;;company
+(package-install 'company)
+(package-install 'company-nginx)
+(global-company-mode 1)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(gameoflife 2048-game rust-mode sdcv dashboard)))
+ '(package-selected-packages
+   '(company-nginx company gameoflife 2048-game rust-mode sdcv dashboard)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
