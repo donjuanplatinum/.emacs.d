@@ -36,10 +36,15 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'repo)
 
+;;sdcv命令
+(package-install 'sdcv)
+(require 'sdcv)
+(global-set-key (kbd "C-c d") 'sdcv-search-pointer+)
+
 ;;sdcv纯lisp实现
 (require 'stardict)
 (setq dict
-      (stardict-open-1 "~/.emacs.d/sdcv/stardict-langdao-ec-gb-2.4.2" "langdao-ec-gb"))
+      (stardict-open "~/.emacs.d/sdcv/stardict-langdao-ec-gb-2.4.2" "langdao-ec-gb"))
 
 ;;(stardict-lookup dict "hello")
 ;;(require 'stardict)
@@ -47,7 +52,7 @@
 ;;       (stardict-open "~/.stardict/dic/stardict-lazyworm-ec-2.4.2"
 ;;                      "lazyworm-ec"))
 ;; (stardict-word-exist-p dict "apple")
-;; (stardict-lookup dict "apple")
+;;(stardict-lookup dict "apple")
 ;;
 ;; (stardict-open-dict-file dict)
 ;; (mapcar (lambda (x) (stardict-lookup dict x)) (make-list 1000 "apple"))
@@ -84,6 +89,8 @@
 (package-install 'gameoflife)
 
 
+
+
 ;;rust
 (package-install 'rust-mode)
 
@@ -99,7 +106,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company-nginx company gameoflife 2048-game rust-mode dashboard)))
+   '(sdcv company-nginx company gameoflife 2048-game rust-mode dashboard)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
