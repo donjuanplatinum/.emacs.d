@@ -1,4 +1,5 @@
-
+;;关闭gui工具栏
+(tool-bar-mode -1)
 
 ;;关闭提示音
 (setq ring-bell-function 'ignore)
@@ -35,6 +36,55 @@
 ;;镜像设置
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (require 'repo)
+
+;;pdf-mode
+(package-install 'pdf-tools)
+(require 'pdf-tools)
+;;LaTeX
+(package-install 'auctex)
+(require 'auctex)
+
+;;magit
+(package-install 'magit)
+(require 'magit)
+
+;;flycheck语法检查
+(package-install 'flycheck)
+(require 'flycheck)
+(global-flycheck-mode 1)
+
+;;rainbow-delimiters括号颜色
+(package-install 'rainbow-delimiters)
+(rainbow-delimiters-mode 1)
+
+
+;;which-key
+(package-install 'which-key)
+(require 'which-key)
+(which-key-mode 1)
+
+
+;;undo-tree
+(package-install 'undo-tree)
+(require 'undo-tree)
+
+
+;;window管理
+(package-install 'ace-window)
+(require 'ace-window)
+(global-set-key (kbd "C-x o") 'ace-window)
+
+;;amx命令历史
+(package-install 'amx)
+(require 'amx)
+(amx-mode 1)
+
+;;smex
+(package-install 'smex)
+(require 'smex)
+(global-set-key (kbd "M-x") 'smex)
+
+;;
 
 ;;sdcv命令
 (package-install 'sdcv)
@@ -91,14 +141,18 @@
 
 
 
-;;rust
+ ;;rust
 (package-install 'rust-mode)
 
 ;;company
 (package-install 'company)
+(require 'company)
 (package-install 'company-nginx)
 (global-company-mode 1)
-
+(setq company-minimum-prefix-length 1)  ;只需要一个字母开始补全
+;(setq company-show-numbers t) ;按M-1,M-2..选项编号
+;(package-install 'company-box) ;图标
+;(require 'company-box)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -106,7 +160,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(sdcv company-nginx company gameoflife 2048-game rust-mode dashboard)))
+   '(company-box smex sdcv company-nginx company gameoflife 2048-game rust-mode dashboard)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
