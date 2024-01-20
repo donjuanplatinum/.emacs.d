@@ -42,7 +42,7 @@
 (require 'pdf-tools)
 ;;LaTeX
 (package-install 'auctex)
-(require 'auctex)
+;(require 'auctex)
 
 ;;magit
 (package-install 'magit)
