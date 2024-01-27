@@ -1,5 +1,9 @@
+;;关闭滚动条
+(scroll-bar-mode -1)
 ;;关闭gui工具栏
 (tool-bar-mode -1)
+;;关闭菜单
+(menu-bar-mode -1)
 
 ;;关闭提示音
 (setq ring-bell-function 'ignore)
@@ -15,6 +19,9 @@
 ;;查看所有包的数量
 ;;(length package-alist)
 
+;;ibuffer
+(global-unset-key (kbd "C-x C-b"))
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;;最近文件
 (require 'recentf)
@@ -48,10 +55,14 @@
 (package-install 'magit)
 (require 'magit)
 
+
+;;flymake语法检查
+(require' flymake)
+(flymake-mode 1)
 ;;flycheck语法检查
-(package-install 'flycheck)
-(require 'flycheck)
-(global-flycheck-mode 1)
+;;(package-install 'flycheck)
+;;(require 'flycheck)
+;;(global-flycheck-mode 1)
 
 ;;rainbow-delimiters括号颜色
 (package-install 'rainbow-delimiters)
@@ -67,6 +78,7 @@
 ;;undo-tree
 (package-install 'undo-tree)
 (require 'undo-tree)
+(undo-tree-mode 1)
 
 
 ;;window管理
@@ -150,7 +162,8 @@
 (package-install 'company-nginx)
 (global-company-mode 1)
 (setq company-minimum-prefix-length 1)  ;只需要一个字母开始补全
-;(setq company-show-numbers t) ;按M-1,M-2..选项编号
+(setq company-show-quick-access t)
+(setq company-show-numbers t) ;按M-1,M-2..选项编号
 ;(package-install 'company-box) ;图标
 ;(require 'company-box)
 
