@@ -1,3 +1,6 @@
+
+
+
 ;;关闭滚动条
 (scroll-bar-mode -1)
 ;;关闭gui工具栏
@@ -18,6 +21,8 @@
 
 ;;查看所有包的数量
 ;;(length package-alist)
+
+
 
 ;;ibuffer
 (global-unset-key (kbd "C-x C-b"))
@@ -150,7 +155,9 @@
 ;;life-game
 (package-install 'gameoflife)
 
-
+;;irc
+(package-install 'circe)
+(require 'circe)
 
 
  ;;rust

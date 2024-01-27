@@ -1,0 +1,1 @@
+(stardict-lookup dict "apple")
