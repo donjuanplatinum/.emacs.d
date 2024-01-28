@@ -179,6 +179,56 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ibuffer-saved-filter-groups
+   '(("ibuffer"
+      ("dired"
+       (used-mode . dired-mode))
+      ("conf"
+       (used-mode . conf-unix-mode))
+      ("magit"
+       (name . "magit*"))
+      ("special"
+       (used-mode . special-mode))
+      ("note"
+       (used-mode . org-mode))
+      ("rust"
+       (used-mode . rust-mode))
+      ("irc"
+       (used-mode . circe-channel-mode)))))
+ '(ibuffer-saved-filters
+   '(("programming"
+      (or
+       (derived-mode . prog-mode)
+       (mode . ess-mode)
+       (mode . compilation-mode)))
+     ("text document"
+      (and
+       (derived-mode . text-mode)
+       (not
+	(starred-name))))
+     ("TeX"
+      (or
+       (derived-mode . tex-mode)
+       (mode . latex-mode)
+       (mode . context-mode)
+       (mode . ams-tex-mode)
+       (mode . bibtex-mode)))
+     ("web"
+      (or
+       (derived-mode . sgml-mode)
+       (derived-mode . css-mode)
+       (mode . javascript-mode)
+       (mode . js2-mode)
+       (mode . scss-mode)
+       (derived-mode . haml-mode)
+       (mode . sass-mode)))
+     ("gnus"
+      (or
+       (mode . message-mode)
+       (mode . mail-mode)
+       (mode . gnus-group-mode)
+       (mode . gnus-summary-mode)
+       (mode . gnus-article-mode)))))
  '(package-selected-packages
    '(company-box smex sdcv company-nginx company gameoflife 2048-game rust-mode dashboard)))
 (custom-set-faces
