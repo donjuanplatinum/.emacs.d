@@ -162,6 +162,10 @@
 (package-install 'circe-notifications)
 (require 'circe-notifications)
 
+;;matrix
+(package-install 'ement)
+(require 'ement)
+
  ;;rust
 (package-install 'rust-mode)
 
@@ -183,6 +187,8 @@
  ;; If there is more than one, they won't work right.
  '(ibuffer-saved-filter-groups
    '(("ibuffer"
+      ("matrix"
+       (name . "Ement*"))
       ("irc query"
        (used-mode . circe-query-mode))
       ("dired"
@@ -234,7 +240,7 @@
        (mode . gnus-summary-mode)
        (mode . gnus-article-mode)))))
  '(package-selected-packages
-   '(circe-notifications company-box smex sdcv company-nginx company gameoflife 2048-game rust-mode dashboard)))
+   '(ement circe-notifications company-box smex sdcv company-nginx company gameoflife 2048-game rust-mode dashboard)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
