@@ -1,184 +1,48 @@
-
-
-
-;;关闭滚动条
-(scroll-bar-mode -1)
-;;关闭gui工具栏
-(tool-bar-mode -1)
-;;关闭菜单
-(menu-bar-mode -1)
-
-;;关闭提示音
-(setq ring-bell-function 'ignore)
-
-;;显示行号
-(global-display-line-numbers-mode 'open)
-
-
-;;关闭自动备份~文件
-(setq make-backup-files nil)
-(setq auto-save-default nil)
-
-;;查看所有包的数量
-;;(length package-alist)
-
-
-
-;;ibuffer
-(global-unset-key (kbd "C-x C-b"))
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-
-;;最近文件
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-menu-item 20)
-(global-set-key (kbd "C-x C-r") 'recentf-open-files)
-
-;;自动替换选择区内容
-(delete-selection-mode 1)
-
-
-;;高亮当前行(global-hl-line-mode 0)
-
-
-;;主题
-(load-theme 'deeper-blue' 1)
-
-
-;;镜像设置
+;;官方包配置
 (add-to-list 'load-path "~/.emacs.d/lisp/")
+;;自定义配置
+(add-to-list 'load-path "~/.emacs.d/site-lisp/")
+;;镜像设置
 (require 'repo)
+;;use-package初始化
+(require 'use-package)
 
-;;pdf-mode
-(package-install 'pdf-tools)
-(require 'pdf-tools)
-;;LaTeX
-(package-install 'auctex)
-;(require 'auctex)
+;;emacs自带默认模式设置
+(require 'default-set)
 
-;;magit
-(package-install 'magit)
-(require 'magit)
+;;包设置
+;;;;company
+(require 'init-company)
+;;;;magit
+(require 'init-magit)
+;;;;flycheck语法检查
+(require 'init-flycheck)
+;;;;rainbow-delimiters括号颜色
+(require 'init-rainbow-delimiters)
+;;;;window管理
+(require 'init-ace-window)
+;;;;dashboard
+(require 'init-dashboard)
+;;;;games
+(require 'init-games)
+;;;;circe
+(require 'init-circe)
+;;;;rust
+(require 'init-rust)
+;;;;matrix
+(require 'init-matrix)
+;;;;whichkey
+(require 'init-whichkey)
+;;;;
 
-
-;;flymake语法检查
-(require' flymake)
-(flymake-mode 1)
-;;flycheck语法检查
-;;(package-install 'flycheck)
-;;(require 'flycheck)
-;;(global-flycheck-mode 1)
-
-;;rainbow-delimiters括号颜色
-(package-install 'rainbow-delimiters)
-(rainbow-delimiters-mode 1)
-
-
-;;which-key
-(package-install 'which-key)
-(require 'which-key)
-(which-key-mode 1)
-
-
-;;undo-tree
-(package-install 'undo-tree)
-(require 'undo-tree)
-(undo-tree-mode 1)
-
-
-;;window管理
-(package-install 'ace-window)
-(require 'ace-window)
-(global-set-key (kbd "C-x o") 'ace-window)
-
-;;amx命令历史
-(package-install 'amx)
-(require 'amx)
-(amx-mode 1)
-
-;;smex
-(package-install 'smex)
-(require 'smex)
-(global-set-key (kbd "M-x") 'smex)
-
-;;
-
-;;sdcv命令
-(package-install 'sdcv)
-(require 'sdcv)
-(global-set-key (kbd "C-c d") 'sdcv-search-pointer+)
-
-;;sdcv纯lisp实现
+;;自定义设置
+;;;;sdcv纯lisp实现
 (require 'stardict)
+(require 'init-stardict)
+
 (setq dict
-      (stardict-open "~/.emacs.d/sdcv/stardict-langdao-ec-gb-2.4.2" "langdao-ec-gb"))
+      (stardict-open "/home/donjuan/.emacs.d/dict/stardict-langdao-ec-gb-2.4.2" "langdao-ec-gb"))
 
-;;(stardict-lookup dict "hello")
-;;(require 'stardict)
-;; (setq dict
-;;       (stardict-open "~/.stardict/dic/stardict-lazyworm-ec-2.4.2"
-;;                      "lazyworm-ec"))
-;; (stardict-word-exist-p dict "apple")
-;;(stardict-lookup dict "apple")
-;;
-;; (stardict-open-dict-file dict)
-;; (mapcar (lambda (x) (stardict-lookup dict x)) (make-list 1000 "apple"))
-
-
-
-
-
-;;dashboard
-(package-install 'dashboard)
-(require 'dashboard)
-(dashboard-setup-startup-hook)
-;; Set the title
-(setq dashboard-banner-logo-title "Donjuan Platinum")
-;; Set the banner
-(setq dashboard-startup-banner "~/.emacs.d/donjuan.png")
-;; Value can be
-;; - nil to display no banner
-;; - 'official which displays the official emacs logo
-;; - 'logo which displays an alternative emacs logo
-;; - 1, 2 or 3 which displays one of the text banners
-;; - "path/to/your/image.gif", "path/to/your/image.png", "path/to/your/text.txt" or "path/to/your/image.xbm" which displays whatever gif/image/text/xbm you would prefer
-;; - a cons of '("path/to/your/image.png" . "path/to/your/text.txt")
-
-;; Content is not centered by default. To center, set
-(setq dashboard-center-content t)
-
-;; To disable shortcut "jump" indicators for each section, set
-(setq dashboard-show-shortcuts nil)
-
-;;2048
-(package-install '2048-game)
-;;life-game
-(package-install 'gameoflife)
-
-;;irc
-(package-install 'circe)
-(require 'circe)
-;;irc-notification
-(package-install 'circe-notifications)
-(require 'circe-notifications)
-
-;;matrix
-(package-install 'ement)
-(require 'ement)
-
- ;;rust
-(package-install 'rust-mode)
-
-;;company
-(package-install 'company)
-(require 'company)
-(package-install 'company-nginx)
-(global-company-mode 1)
-(setq company-minimum-prefix-length 1)  ;只需要一个字母开始补全
-(setq company-show-quick-access t)
-(setq company-show-numbers t) ;按M-1,M-2..选项编号
-;(package-install 'company-box) ;图标
-;(require 'company-box)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -187,24 +51,12 @@
  ;; If there is more than one, they won't work right.
  '(ibuffer-saved-filter-groups
    '(("ibuffer"
-      ("matrix"
-       (name . "Ement*"))
-      ("irc query"
-       (used-mode . circe-query-mode))
+      ("rust"
+       (mode . rust-mode))
       ("dired"
        (used-mode . dired-mode))
-      ("conf"
-       (used-mode . conf-unix-mode))
-      ("magit"
-       (name . "magit*"))
-      ("special"
-       (used-mode . special-mode))
-      ("note"
-       (used-mode . org-mode))
-      ("rust"
-       (used-mode . rust-mode))
-      ("irc"
-       (used-mode . circe-channel-mode)))))
+      ("org-mode"
+       (used-mode . org-mode)))))
  '(ibuffer-saved-filters
    '(("programming"
       (or
@@ -238,28 +90,10 @@
        (mode . mail-mode)
        (mode . gnus-group-mode)
        (mode . gnus-summary-mode)
-       (mode . gnus-article-mode)))))
- '(package-selected-packages
-   '(ement circe-notifications company-box smex sdcv company-nginx company gameoflife 2048-game rust-mode dashboard)))
+       (mode . gnus-article-mode))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

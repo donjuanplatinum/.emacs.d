@@ -1,6 +1,6 @@
 ;;镜像设置
-(setq package-archives '(("gnu-donjuan"   . "http://127.0.0.1:9998/elpa/gnu/")
-			 ("melpa-donjuan"  . "http://127.0.0.1:9998/elpa/melpa/")
-			 ("nongnu-donjuan" . "http://127.0.0.1/elpa/nongnu/" )
+(setq package-archives '(("gnu-mirror"   . "http://mirror.nju.edu.cn/elpa/gnu/")
+			 ("melpa-mirror"  . "http://mirror.nju.edu.cn/elpa/melpa/")
+			 ("nongnu-mirror" . "http://mirror.nju.edu.cn/elpa/nongnu/" )
 			 ))
 (provide 'repo)
