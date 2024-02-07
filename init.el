@@ -41,8 +41,6 @@
 ;;;;sdcv纯lisp实现
 (require 'stardict)
 (require 'init-stardict)
-;(setq dict
-;      (stardict-open "/home/donjuan/.emacs.d/dict/stardict-langdao-ec-gb-2.4.2" "langdao-ec-gb"))
 
 
 (custom-set-variables

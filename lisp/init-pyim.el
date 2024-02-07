@@ -5,7 +5,7 @@
   :ensure t
   )
 (use-package pyim-cregexp-utils
-  :ensuire t
+  :ensure t
   )
 ;加载basedict词库
 (pyim-basedict-enable)
