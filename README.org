@@ -26,7 +26,7 @@
 | C-\ | 启用pyim |
 *** stardict
 | C-c d | stardict-translate-region | 翻译选中块 |
-×**ibuffer
+*** ibuffer
 | /R | 加载预设 |
 *** org
 | M-o | org-insert-structure-template | 快速输入#+begin_ #+end_ |
