@@ -10,6 +10,9 @@
 (require 'init-ibuffer)
 ;;emacs自带默认模式设置
 (require 'default-set)
+;;org设置
+(require 'init-org)
+
 
 ;;包设置
 ;;;;company

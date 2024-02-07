@@ -1,5 +1,5 @@
 (use-package rainbow-delimiters
   :ensure t
-  :init (rainbow-delimiters-mode)
+  :init (rainbow-delimiters-mode t)
   )
 (provide 'init-rainbow-delimiters)

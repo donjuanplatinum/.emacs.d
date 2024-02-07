@@ -1,0 +1,37 @@
+* A Lightweight Emacs
+** Setup
+#+begin_src shell
+  git clone https://github.com/donjuanplatinum/.emacs.d ~/.emacs.d
+#+end_src
+
+** Table
+[[#Packages][packages]]
+[[#keyboard][keboard]]
+** Packages
+| pyim               | 中文输入     |
+| stardict           | sdcv内置字典 |
+| magit              | git          |
+| company            | 补全         |
+| flycheck           | 语法检查     |
+| rainbow-delimiters | 彩虹括号     |
+| ace-window         | 窗口编号     |
+| dashboard          | 启动面板     |
+| circe              | IRC客户端    |
+| rust-mode          | rust模式     |
+| ement              | Matrix客户端 |
+| whichkey           | 快捷键提醒   |
+
+** Keyboard
+*** pyim
+| C-\ | 启用pyim |
+*** stardict
+| C-c d | stardict-translate-region | 翻译选中块 |
+×**ibuffer
+| /R | 加载预设 |
+*** org
+| M-o | org-insert-structure-template | 快速输入#+begin_ #+end_ |
+
+
+
+
+
