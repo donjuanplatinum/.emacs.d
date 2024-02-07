@@ -35,7 +35,7 @@
 ;;                      "lazyworm-ec"))
 ;; (stardict-word-exist-p dict "apple")
 ;; (stardict-lookup dict "apple")
-
+;; (stardict-lookup dict "hellow")
 ;; (stardict-open-dict-file dict)
 ;; (mapcar (lambda (x) (stardict-lookup dict x)) (make-list 1000 "apple"))
 
@@ -159,49 +159,27 @@ You should close the dict file yourself."
 (defvar stardict-name nil)
 (defvar stardict-dict-hash nil)
 
-(defun stardict--load-dict ()
-  "load dictionary when call for first time."
-  (unless stardict-dict-hash
-    (setq stardict-dict-hash
-          (stardict-open stardict-dir stardict-name))))
+
 
 (defun stardict--lookup-and-display (word)
   (with-current-buffer (get-buffer-create "*stardict*")
     (erase-buffer)
     (insert (concat word "\n"))
-    (insert (stardict-lookup stardict-dict-hash (string-trim (downcase word))))
+    (insert (stardict-lookup dict (string-trim (downcase word))))
     (goto-char (point-min))
     (switch-to-buffer (current-buffer))))
 
-(defun stardict-define-at-point ()
-  "Define the word at point."
+
+
+
+(defun stardict-translate-region ()
   (interactive)
-  (stardict--load-dict)
-  (let ((word (thing-at-point 'word)))
-    ;; if word is not in dictionary, try to truncate
-    (unless (stardict-word-exist-p stardict-dict-hash word)
-      (let ((trunc-char
-             (cond
-              ((string-match "^.*ed$" word) -2)
-              ((string-match "^.*ing$" word) -3)
-              ((string-match "^.*es$" word) -2)
-              ((string-match "^.*'s$" word) -2)
-              ((string-match "^.*s$" word) -1))))
-        (if trunc-char
-          (setq word (substring word 0 trunc-char))
-          (setq word nil))))
-    (if word
-        (stardict--lookup-and-display word)
-      (message "No definition is found!"))))
-
-(defun stardict-define (word)
-  "Prompt for `WORD' and define it."
-  (interactive "sWord: ")
-  (stardict--load-dict)
-  (if (stardict-word-exist-p stardict-dict-hash word)
-      (stardict--lookup-and-display word)
-    (message "No definition is found!")))
-
+  (when (region-active-p)
+    (let* ((beg (region-beginning))
+           (end (region-end))
+           (string (buffer-substring-no-properties beg end))
+           (result (stardict-lookup dict string)))
+(message result))))
 (provide 'stardict)
 
 ;;; stardict.el ends here

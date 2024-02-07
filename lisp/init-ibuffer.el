@@ -23,6 +23,8 @@
        (used-mode . org-mode))
       ("rust"
        (used-mode . rust-mode))
+      ("elisp"
+       (used-mode . emacs-lisp-mode))
       ("irc"
        (used-mode . circe-channel-mode)))))
 

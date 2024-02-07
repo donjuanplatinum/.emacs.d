@@ -25,7 +25,7 @@
 (setq default-input-method "pyim")
 (global-set-key (kbd "C-\\") 'toggle-input-method)
 
-
+(setq pyim-page-tooltip 'popup)
 
 
 (provide 'init-pyim)
