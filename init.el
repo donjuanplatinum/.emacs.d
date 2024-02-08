@@ -46,8 +46,9 @@
 
 ;;自定义设置
 ;;;;sdcv纯lisp实现
-(require 'stardict)
 (require 'init-stardict)
+(require 'stardict)
+
 
 
 (custom-set-variables
