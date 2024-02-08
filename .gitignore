@@ -9,3 +9,4 @@ url
 pyim
 *.emacs.bz2
 #*#
+.lsp-session-v1
