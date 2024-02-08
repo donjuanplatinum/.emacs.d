@@ -41,7 +41,8 @@
 (require 'init-pyim)
 ;;;;lsp-mode
 (require 'init-lsp)
-
+;;;;kotlin
+(require 'init-kotlin)
 
 ;;自定义设置
 ;;;;sdcv纯lisp实现
@@ -55,7 +56,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-ui lsp-mode flycheck-rust pyim which-key rust-mode rainbow-delimiters magit gameoflife flycheck ement dashboard company circe-notifications ace-window 2048-game)))
+   '(kotlin-mode lsp-ui lsp-mode flycheck-rust pyim which-key rust-mode rainbow-delimiters magit gameoflife flycheck ement dashboard company circe-notifications ace-window 2048-game)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -30,7 +30,13 @@
 | /R | 加载预设 |
 *** org
 | M-o | org-insert-structure-template | 快速输入#+begin_ #+end_ |
-
+*** lsp-mode
+| C-c C-c a | 优化代码                   | lsp-execute-code-action        |
+| M-.       | 跳转函数,结构体,包等定义处 |                                |
+| M-?       | 列出标记的所有引用         |                                |
+| M-j       | 打开当前模块大纲           |                                |
+| C-c C-c r | 变量集体重构               | lsp-rename                     |
+| C-c C-c e | 展开宏                     | lsp-rust-analyzer-expand-macro |
 
 
 
