@@ -1,5 +1,13 @@
 ;;在关闭emacs前询问是否确认关闭
 (setq confirm-kill-emacs #'yes-or-no-p)
+;;winner-mode
+(winner-mode 1)
+;;white-space空白字符显示
+(use-package whitespace
+  :ensure nil
+  :hook ((prog-mode markdown-mode conf-mode) . whitespace-mode)
+  :config
+  (setq whitespace-style '(face trailing)))
 ;;自动补全括号
 (electric-pair-mode t)
 ;;即使刷新

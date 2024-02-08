@@ -6,5 +6,7 @@
   (setq company-show-quick-access t)
   (setq company-show-numbers t) ;;显示选项编号
   )
-
+(use-package company-nginx
+  :ensure t
+  )
 (provide 'init-company)

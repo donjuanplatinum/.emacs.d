@@ -43,11 +43,17 @@
 (require 'init-lsp)
 ;;;;kotlin
 (require 'init-kotlin)
+;;;;nginx
+(require 'init-nginx)
+
+
+
 
 ;;自定义设置
 ;;;;sdcv纯lisp实现
-(require 'init-stardict)
 (require 'stardict)
+(require 'init-dictionary)
+
 
 
 
