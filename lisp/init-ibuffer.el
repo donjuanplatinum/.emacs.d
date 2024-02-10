@@ -6,26 +6,28 @@
 
 
 (setq ibuffer-saved-filter-groups
-'(("ibuffer"
-      ("matrix"
-       (name . "Ement*"))
-      ("irc query"
-       (used-mode . circe-query-mode))
-      ("dired"
-       (used-mode . dired-mode))
-      ("conf"
-       (used-mode . conf-unix-mode))
-      ("magit"
-       (name . "magit*"))
-      ("special"
-       (used-mode . special-mode))
-      ("org_note"
-       (used-mode . org-mode))
-      ("rust"
-       (used-mode . rust-mode))
-      ("elisp"
-       (used-mode . emacs-lisp-mode))
-      ("irc"
-       (used-mode . circe-channel-mode)))))
+      '(("ibuffer"
+	 ("org_note"
+	  (used-mode . org-mode))
+	 ("rust"
+	  (used-mode . rust-mode))
+	 ("docker-compose"
+	  (name . "docker-compose"))
+	 ("matrix"
+	  (name . "Ement*"))
+	 ("irc query"
+	  (used-mode . circe-query-mode))
+	 ("dired"
+	  (used-mode . dired-mode))
+	 ("conf"
+	  (used-mode . conf-unix-mode))
+	 ("magit"
+	  (name . "magit*"))
+	 ("special"
+	  (used-mode . special-mode))
+	 ("elisp"
+	  (used-mode . emacs-lisp-mode))
+	 ("irc"
+	  (used-mode . circe-channel-mode)))))
 
 (provide 'init-ibuffer)
