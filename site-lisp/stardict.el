@@ -179,7 +179,9 @@ You should close the dict file yourself."
            (end (region-end))
            (string (buffer-substring-no-properties beg end))
            (result (stardict-lookup dict string)))
-(message result))))
+      (message result))))
+
+
 (provide 'stardict)
 
 ;;; stardict.el ends here

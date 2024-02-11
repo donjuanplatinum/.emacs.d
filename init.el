@@ -54,10 +54,9 @@
 
 ;;自定义设置
 ;;;;sdcv纯lisp实现
+
 (require 'stardict)
 (require 'init-dictionary)
-
-
 
 
 
@@ -66,66 +65,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ibuffer-saved-filter-groups
-   '(("ibuffer"
-      ("docker-compose"
-       (used-mode . docker-compose-mode))
-      ("matrix"
-       (name . "Ement*"))
-      ("irc query"
-       (used-mode . circe-query-mode))
-      ("dired"
-       (used-mode . dired-mode))
-      ("conf"
-       (used-mode . conf-unix-mode))
-      ("magit"
-       (name . "magit*"))
-      ("special"
-       (used-mode . special-mode))
-      ("org_note"
-       (used-mode . org-mode))
-      ("rust"
-       (used-mode . rust-mode))
-      ("elisp"
-       (used-mode . emacs-lisp-mode))
-      ("irc"
-       (used-mode . circe-channel-mode)))) t)
- '(ibuffer-saved-filters
-   '(("programming"
-      (or
-       (derived-mode . prog-mode)
-       (mode . ess-mode)
-       (mode . compilation-mode)))
-     ("text document"
-      (and
-       (derived-mode . text-mode)
-       (not
-	(starred-name))))
-     ("TeX"
-      (or
-       (derived-mode . tex-mode)
-       (mode . latex-mode)
-       (mode . context-mode)
-       (mode . ams-tex-mode)
-       (mode . bibtex-mode)))
-     ("web"
-      (or
-       (derived-mode . sgml-mode)
-       (derived-mode . css-mode)
-       (mode . javascript-mode)
-       (mode . js2-mode)
-       (mode . scss-mode)
-       (derived-mode . haml-mode)
-       (mode . sass-mode)))
-     ("gnus"
-      (or
-       (mode . message-mode)
-       (mode . mail-mode)
-       (mode . gnus-group-mode)
-       (mode . gnus-summary-mode)
-       (mode . gnus-article-mode)))))
  '(package-selected-packages
-   '(dockerfile-mode docker-compose-mode yaml-mode kotlin-mode lsp-ui lsp-mode flycheck-rust pyim which-key rust-mode rainbow-delimiters magit gameoflife flycheck dashboard company circe-notifications ace-window 2048-game)))
+   '(pyim-cregexp-utils which-key rust-mode rainbow-delimiters pyim-basedict pyim org-roam nginx-mode magit lsp-ui kotlin-mode gameoflife flycheck-rust ement dockerfile-mode docker-compose-mode dashboard company-nginx circe-notifications ace-window 2048-game)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
