@@ -43,3 +43,16 @@
 | C-c i | 输入单词并翻译   | stardict-translate-input |
 | C-c s | 显示当前字典     | stardict-show-dict       |
 
+*** stardict字典
+| bcgm                   | stardict-bcgm-2.4.2                   | 本草纲目           |
+| langdao-ec             | stardict-langdao-ec-gb-2.4.2          | 郎道英汉5.0        |
+| gaojihanyudacidian_fix | stardict-gaojihanyudacidian_fix-2.4.2 | 高级汉语大辞典修正版 |
+| ghycyzzd               | stardict-ghycyzzd-2.4.2               | 古汉语常用辞典      |
+| hanyuchengyucidian     | stardict-hanyuchengyucidian_fix-2.4.2 | 汉语成语辞典        |
+| computer               | stardict-kdic-computer-gb-2.4.2       | 计算机词汇         |
+| medical                | stardict-xiangya-medical-2.4.2        | 湘雅医学辞典        |
+
+
+
+
+
