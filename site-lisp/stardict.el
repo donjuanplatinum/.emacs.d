@@ -172,14 +172,7 @@ You should close the dict file yourself."
 
 
 
-(defun stardict-translate-region ()
-  (interactive)
-  (when (region-active-p)
-    (let* ((beg (region-beginning))
-           (end (region-end))
-           (string (buffer-substring-no-properties beg end))
-           (result (stardict-lookup dict string)))
-      (message result))))
+
 
 
 (provide 'stardict)

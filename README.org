@@ -37,7 +37,9 @@
 | M-j       | 打开当前模块大纲           |                                |
 | C-c C-c r | 变量集体重构               | lsp-rename                     |
 | C-c C-c e | 展开宏                     | lsp-rust-analyzer-expand-macro |
-
-
-
+*** stardict
+| C-c c | 选择一个字典     | stardict-choose-dict     |
+| C-c d | 在选择区查询字典 | stardict-translate-dict  |
+| C-c i | 输入单词并翻译   | stardict-translate-input |
+| C-c s | 显示当前字典     | stardict-show-dict       |
 
