@@ -154,21 +154,6 @@ You should close the dict file yourself."
   (with-current-buffer (find-file-noselect (nth 2 dict))
     (setq buffer-read-only t)))
 
-;; added by myself
-(defvar stardict-dir nil)
-(defvar stardict-name nil)
-(defvar stardict-dict-hash nil)
-
-
-
-(defun stardict--lookup-and-display (word)
-  (with-current-buffer (get-buffer-create "*stardict*")
-    (erase-buffer)
-    (insert (concat word "\n"))
-    (insert (stardict-lookup dict (string-trim (downcase word))))
-    (goto-char (point-min))
-    (switch-to-buffer (current-buffer))))
-
 
 
 
