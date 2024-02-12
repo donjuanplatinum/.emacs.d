@@ -7,16 +7,15 @@
 (use-package pyim-cregexp-utils
   :ensure t
   )
+(use-package pyim-tsinghua-dict)
 ;加载basedict词库
-(pyim-basedict-enable)
+;(pyim-basedict-enable)
 ;设置Emacs默认输入法
 (setq default-input-method "pyim")
 
 ;候选词数量设置
 
 (setq pyim-page-length 5)
-
-
 ;; 设置 pyim 默认使用的输入法策略
 (pyim-default-scheme 'quanpin)
 ;; (pyim-default-scheme 'wubi)

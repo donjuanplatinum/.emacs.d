@@ -2,6 +2,8 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 ;;自定义配置
 (add-to-list 'load-path "~/.emacs.d/site-lisp/")
+
+
 ;;镜像设置
 (require 'repo)
 ;;use-package初始化
@@ -49,8 +51,12 @@
 (require 'init-yaml)
 ;;;;docker
 (require 'init-docker)
-
-
+;;;;popup
+(require 'init-popup)
+;;;;tsinghua-pyim
+(add-to-list 'load-path "~/.emacs.d/site-lisp/pyim-tsinghua-dict/")
+(require 'pyim-tsinghua-dict)
+(pyim-tsinghua-dict-enable)
 
 ;;自定义设置
 ;;;;sdcv纯lisp实现
@@ -66,7 +72,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(pyim-cregexp-utils which-key rust-mode rainbow-delimiters pyim-basedict pyim org-roam nginx-mode magit lsp-ui kotlin-mode gameoflife flycheck-rust ement dockerfile-mode docker-compose-mode dashboard company-nginx circe-notifications ace-window 2048-game)))
+   '(pyim-cregexp-utils which-key rust-mode rainbow-delimiters pyim-basedict pyim popup org-roam nginx-mode magit lsp-ui kotlin-mode gameoflife flycheck-rust ement dockerfile-mode docker-compose-mode dashboard company-nginx circe-notifications ace-window 2048-game)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
