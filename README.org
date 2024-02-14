@@ -55,4 +55,8 @@
 
 
 
+*** treemacs
+| 调出treemacs | C-x t t              |
+| M-0         | 在treemacs和buffer切换 |
+| ?           | 帮助                   |
 

@@ -23,14 +23,15 @@
   )
 )
 (defun stardict-translate-region ()
-  "翻译区域内的单词"
+  "翻译区域内的单词，并将结果显示在popup弹窗中"
   (interactive)
   (when (region-active-p)
     (let* ((beg (region-beginning))
            (end (region-end))
            (string (buffer-substring-no-properties beg end))
            (result (stardict-lookup dict string)))
-      (message result))))
+      (popup-tip result)))) ; 使用popup-tip函数将结果显示在弹窗中
+
 
 (defun stardict-translate-input ()
   "输入单词并翻译"
