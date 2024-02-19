@@ -1,0 +1,9 @@
+* Default
+** project
+ - path :: ~/project
+** org_note
+ - path :: ~/org_note
+** compose
+ - path :: ~/compose
+** .emacs.d
+ - path :: ~/.emacs.d
