@@ -1,5 +1,11 @@
 ;;在关闭emacs前询问是否确认关闭
 (setq confirm-kill-emacs #'yes-or-no-p)
+
+;;windmove
+(global-set-key (kbd "C-c n") 'windmove-down)
+(global-set-key (kbd "C-c p") 'windmove-up)
+(global-set-key (kbd "C-c f") 'windmove-right)
+(global-set-key (kbd "C-c b") 'windmove-left)
 ;;winner-mode
 (winner-mode 1)
 ;;white-space空白字符显示

@@ -60,3 +60,8 @@
 | M-0         | 在treemacs和buffer切换 |
 | ?           | 帮助                   |
 
+*** windmove
+| C-c p | windmove-up   |
+| C-c n | windmove-down |
+| C-c b | windmove-left |
+| C-c f | windmove-right |
