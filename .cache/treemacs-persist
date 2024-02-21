@@ -1,9 +1,0 @@
-* Default
-** algori
- - path :: ~/algori
-** work
- - path :: ~/work
-** logicgate
- - path :: ~/logicgate
-** .emacs.d
- - path :: ~/.emacs.d
