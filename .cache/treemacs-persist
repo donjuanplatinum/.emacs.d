@@ -1,9 +1,9 @@
 * Default
-** project
- - path :: ~/project
-** org_note
- - path :: ~/org_note
-** compose
- - path :: ~/compose
+** algori
+ - path :: ~/algori
+** work
+ - path :: ~/work
+** logicgate
+ - path :: ~/logicgate
 ** .emacs.d
  - path :: ~/.emacs.d

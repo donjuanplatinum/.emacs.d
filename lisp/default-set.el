@@ -1,6 +1,8 @@
 ;;在关闭emacs前询问是否确认关闭
 (setq confirm-kill-emacs #'yes-or-no-p)
 
+;;region
+(global-set-key (kbd "C-c r") 'set-mark-command)
 ;;windmove
 (global-set-key (kbd "C-c n") 'windmove-down)
 (global-set-key (kbd "C-c p") 'windmove-up)

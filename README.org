@@ -65,3 +65,14 @@
 | C-c n | windmove-down |
 | C-c b | windmove-left |
 | C-c f | windmove-right |
+
+
+
+*** windresize
+| C-c w | windresize |
+
+
+
+*** region
+| M-@ / C-c r | set-mark-commnad |
+
