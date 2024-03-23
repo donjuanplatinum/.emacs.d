@@ -65,6 +65,8 @@
 (require 'init-treemacs)
 (require 'init-window)
 
+
+(require 'init-rime)
 ;;自定义设置
 ;;;;sdcv纯lisp实现
 
@@ -79,7 +81,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(haskell-mode windresize auctex lsp-treemacs treemacs-projectile treemacs pyim-cregexp-utils which-key rust-mode rainbow-delimiters pyim-basedict pyim popup org-roam nginx-mode magit lsp-ui kotlin-mode gameoflife flycheck-rust ement dockerfile-mode docker-compose-mode dashboard company-nginx circe-notifications ace-window 2048-game)))
+   '(rime haskell-mode windresize auctex lsp-treemacs treemacs-projectile treemacs pyim-cregexp-utils which-key rust-mode rainbow-delimiters pyim-basedict pyim popup org-roam nginx-mode magit lsp-ui kotlin-mode gameoflife flycheck-rust ement dockerfile-mode docker-compose-mode dashboard company-nginx circe-notifications ace-window 2048-game)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
