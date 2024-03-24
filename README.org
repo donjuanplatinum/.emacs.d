@@ -20,12 +20,11 @@
 | rust-mode          | rust模式     |
 | ement              | Matrix客户端 |
 | whichkey           | 快捷键提醒   |
-
+| docker             | docker交互   |
 ** Keyboard
 *** pyim
-| C-\ | 启用pyim |
-*** stardict
-| C-c d | stardict-translate-region | 翻译选中块 |
+| C-\     | 启用pyim |
+| C-c c p | 切换pyim模式 |
 *** ibuffer
 | /R | 加载预设 |
 *** org
@@ -38,10 +37,10 @@
 | C-c C-c r | 变量集体重构               | lsp-rename                     |
 | C-c C-c e | 展开宏                     | lsp-rust-analyzer-expand-macro |
 *** stardict
-| C-c c | 选择一个字典     | stardict-choose-dict     |
-| C-c d | 在选择区查询字典 | stardict-translate-dict  |
-| C-c i | 输入单词并翻译   | stardict-translate-input |
-| C-c s | 显示当前字典     | stardict-show-dict       |
+| C-c c c | 选择一个字典     | stardict-choose-dict     |
+| C-c c d | 在选择区查询字典 | stardict-translate-dict  |
+| C-c i   | 输入单词并翻译   | stardict-translate-input |
+| C-c s   | 显示当前字典     | stardict-show-dict       |
 
 *** stardict字典
 | bcgm                   | stardict-bcgm-2.4.2                   | 本草纲目           |
@@ -72,7 +71,8 @@
 | C-c w | windresize |
 
 
-
+*** docker
+| C-c d | docker |
 *** region
 | M-@ / C-c r | set-mark-commnad |
 

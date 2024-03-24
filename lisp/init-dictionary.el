@@ -1,3 +1,4 @@
+
 (defun stardict-choose-dict ()
   "select a dict"
   (interactive)
@@ -41,7 +42,7 @@
     (message result))
   )
 
-(global-set-key (kbd "C-c d") 'stardict-translate-region)
+(global-set-key (kbd "C-c c d") 'stardict-translate-region)
 (global-set-key (kbd "C-c c c") 'stardict-choose-dict)
 (global-set-key (kbd "C-c s") 'stardict-show-dict)
 (global-set-key (kbd "C-c i") 'stardict-translate-input)
