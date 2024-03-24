@@ -1,4 +1,10 @@
 * A Lightweight Emacs
+** Features
+1. [[#pyim][pyim]]
+2. [[#stardict][stardict]]
+3. [[#lsp][lsp-mode]]
+4. [[#docker][docker]]
+5. [[#treemacs][treemacs]]
 ** Setup
 #+begin_src shell
   git clone https://github.com/donjuanplatinum/.emacs.d ~/.emacs.d
