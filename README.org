@@ -1,0 +1,8 @@
+* My Emacs Configure
+** Setup
+#+begin_src shell
+$ git clone https://github.com/donjuanplatinum/.emacs.d ~/.emacs.d
+$ bash install.sh
+$ emerge librime #gentoo
+$ emacs --batch ~/.emacs.d/init.org --eval '(org-babel-tangle)'
+#+end_src

@@ -1,0 +1,1816 @@
+;-*- mode: org -*-
+#+TITLE: Barrensea Emacs
+#+AUTHOR: DonjuanPlatinum in Barrensea
+#+DATE: 2024/6/22
+#+STARTUP: overview
+* key
+** flycheck
+| C-c C-c l | flycheck-list-errors | 显示错误列表 |
+** basic
+| C-c r | set-mark-command    | 选中    |
+| C-c m | rectangle-mark-mode | 矩形选中 |
+*** xref
+| M . | xref-find-definitions | 跳转到引用的源代码处 |
+| M , | xref-go-back          | 跳回去             |
+| M ? | xref-find-references  | 列出所有的引用      |
+
+** org
+| M-o | 'org-insert-structure-template | 快速插入代码块 |
+** hydra
+Hydra加入了移动方式 ~C-t~
+#+begin_src emacs-lisp
+_p_/_k_: Up (C-p)        _b_/_h_: Back (C-b)  _a_: Home (C-a)  _G_: End of Buffer (M->)
+_f_/_l_: Forward (C-f)   _n_/_j_: Down (C-n)  _e_: End (C-e)   _G_: Beginning of Buffer (M-<)
+_v_: Scroll Up (C-v)     _V_: Scroll Down (M-v)
+#+end_src
+** shell
+| C-` | 弹出终端 |
+** magit
+| C-x g | magit-status |
+* init.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle init.el
+:END:
+=init.el=
+** desktop-save
+#+begin_src emacs-lisp
+  (desktop-save-mode 1)
+  (setq desktop-auto-save-timeout 60)
+#+end_src
+** GC (垃圾回收)
+启动时调大阈值，避免频繁 GC 拖慢启动。启动后恢复合理值，让 GC 频繁但无感运行。
+#+begin_src emacs-lisp
+  ;; 启动时高阈值
+  (setq gc-cons-threshold (* 128 1024 1024))
+
+  ;; 启动后降到 16MB
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (setq gc-cons-threshold (* 16 1024 1024))))
+#+end_src
+** 自定义变量
+#+begin_src emacs-lisp
+  (setenv "DBUS_SESSION_BUS_ADDRESS" nil) ; 这个会导致podman无法使用
+#+end_src
+** 导入路径
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lisp/")
+  (add-to-list 'load-path "~/.emacs.d/site-lisp/")
+#+end_src
+
+** 镜像设置
+#+begin_src emacs-lisp
+  (setq package-archives '(("gnu-mirror"   . "https://mirrors.ustc.edu.cn/elpa/gnu/")
+  			 ("melpa-mirror"  . "https://mirrors.ustc.edu.cn/elpa/melpa/")
+  			 ("nongnu-mirror" . "https://mirrors.ustc.edu.cn/elpa/nongnu/" )
+  			 ("org-mirror" . "https://mirrors.ustc.edu.cn/elpa/org/")
+  			 ))
+#+end_src
+
+** benchmark
+#+begin_src emacs-lisp
+  (use-package benchmark-init
+    :ensure t
+    :config
+    ;; To disable collection of benchmark data after init is done.
+    (add-hook 'after-init-hook 'benchmark-init/deactivate))
+#+end_src
+** unset-key
+#+begin_src emacs-lisp
+  (global-unset-key (kbd "C-x C-b")) ;; bufferlist换成ibuffer
+  (global-unset-key (kbd "C-t"))  ;; hydra
+  (global-unset-key (kbd "M-x")) ;; smex
+  (global-unset-key (kbd "C-SPC")) ;; windsize
+#+end_src
+** which-func-mode
+在状态栏显示当前光标处在哪个函数
+#+begin_src emacs-lisp
+  (which-function-mode)
+#+end_src
+** 配置导入
+*** 变量
+#+begin_src emacs-lisp
+  ;; custom file
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file)
+#+end_src
+*** 常规
+#+begin_src emacs-lisp
+  ;; ibuffer配置
+  (require 'init-ibuffer)
+
+  ;; emacs自带默认模式设置
+  (require 'default-set)
+
+  ;; helpful
+  (require 'init-helpful)
+#+end_src
+*** 输入法
+#+begin_src emacs-lisp
+  (require 'init-rime)
+#+end_src
+*** 模式
+#+begin_src emacs-lisp
+
+  (require 'init-org)
+  ;; org-mode
+  ;; markdown-mode
+  (require 'init-markdown)
+
+  ;; rust
+  (require 'init-rust)
+
+  ;; python
+  (require 'init-python)
+
+  ;; yaml
+  (require 'init-yaml)
+
+  ;; maxima
+  (require 'init-maxima)
+
+  ;; docker
+  (require 'init-docker)
+
+  ;; gnuplot
+  (require 'init-gnuplot)
+
+  ;; nov
+  (require 'init-nov)
+
+  ;; sphinx
+  (require 'init-sphinx)
+
+  ;; uniline
+  (require 'init-uniline)
+
+  ;; ein
+  (require 'init-ein)
+
+  ;; kotlin
+  (require 'init-kotlin)
+  ;; Lean
+;  (require 'init-lean)
+  ;; Dart
+  (require 'init-dart)
+  ;; TS
+  (require 'init-ts)
+  ;; vue
+  (require 'init-vue)
+#+end_src
+*** 功能
+#+begin_src emacs-lisp
+  ;; embark
+  (require 'init-embark)
+  ;; company
+  (require 'init-company)
+  ;; whichkey
+  (require 'init-whichkey)
+  ;; undo-tree
+  (require 'init-undo-tree)
+  ;; curx
+  (require 'init-crux)
+  ;; keycast
+  (require 'init-keycast)
+  ;; tramp
+  (require 'init-tramp)
+  ;; aira2
+  (require 'init-aria2)
+  ;; hydra
+  (require 'init-hydra)
+  ; smex
+  (require 'init-smex)
+  ;; beacon
+  (require 'init-beacon)
+  ;; anzu
+  (require 'init-anzu)
+  ;; ivy
+  (require 'init-ivy)
+  ;; vertico
+  ;; (require 'init-vertico)
+  (require 'init-yasnippet)
+
+  ;; dumb-jump
+  (require 'init-dumb-jump)
+  
+#+end_src
+*** 终端
+#+begin_src emacs-lisp
+  ;; shell
+  (require 'init-shell)
+#+end_src
+*** git
+#+begin_src emacs-lisp
+  (require 'init-git)
+#+end_src
+*** 外观
+#+begin_src emacs-lisp
+  ;; 主题设置
+  (require 'init-theme)
+  ;; 括号色彩
+  (require 'init-rainbow)
+  ;; 启动面板
+  (require 'init-dashboard)
+#+end_src
+
+*** 窗口
+#+begin_src emacs-lisp
+  (require 'init-ace-window)
+  ;; treemacs
+  (require 'init-treemacs)
+  ;; battery
+  (require 'init-battery)
+  ;; zoom
+  (require 'init-zoom)
+  ;; windsize
+  (require 'init-windsize)
+#+end_src
+*** 游戏
+#+begin_src emacs-lisp
+  (require 'init-game)
+#+end_src
+*** ai
+#+begin_src emacs-lisp
+  ;(require 'init-aider)
+  (require 'init-ai)
+  (require 'init-mcp)
+#+end_src
+*** 消息
+#+begin_src emacs-lisp
+  (require 'init-gnus)
+#+end_src
+** provide
+#+begin_src emacs-lisp
+  (provide 'init)
+#+end_src
+* custom.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle custom.el :mkdirp yes
+:END:
+用户变量保存处
+
+** custom-set-face
+#+begin_src emacs-lisp
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(region ((t (:extend t :background "cornflowerblue" :foreground "#bebec4")))))
+#+end_src
+* config-lisp
+** 通用配置
+*** default-set.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/default-set.el :mkdirp yes
+:END:
+
+基本的配置
+
+**** bind
+#+begin_src emacs-lisp
+  ;; set-mark-command bind
+  (global-set-key (kbd "C-c r") 'set-mark-command)
+  ;; 矩形操作
+  (global-set-key (kbd "C-c m") 'rectangle-mark-mode)
+#+end_src
+**** 习惯更改
+#+begin_src emacs-lisp
+  ;; 自动替换选择区内容
+  (delete-selection-mode 1)
+#+end_src
+**** 功能更改
+#+begin_src emacs-lisp
+  ;; 自动补全括号
+  ;(electric-pair-mode 1)
+
+  ;; 关闭提示音
+  (setq ring-bell-function 'ignore)
+
+  ;; 显示行号
+  (global-display-line-numbers-mode 'open)
+  (column-number-mode 1)
+
+  ;; 关闭自动备份~文件
+  (setq make-backup-files nil)
+  (setq auto-save-default nil)
+
+
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'default-set)
+#+end_src
+*** init-ibuffer.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ibuffer.el :mkdirp yes
+:END:
+**** bind
+#+begin_src emacs-lisp
+
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+#+end_src
+**** 配置
+#+begin_src emacs-lisp
+  ;; 不显示空组
+  (setq ibuffer-show-empty-filter-groups nil)
+#+end_src
+**** ibuffer主体
+#+begin_src emacs-lisp
+    (setq ibuffer-saved-filter-groups
+          '(("ibuffer"
+    	 ("rust"
+    	  (used-mode . rust-mode))
+    	 ("java"
+    	  (used-mode . java-mode))
+    	 ("Lean4"
+  	  (used-mode . lean4-mode))
+    	 ("python"
+    	  (used-mode . python-mode))
+    	 ("org_note"
+    	  (used-mode . org-mode))
+    	 ("typst"
+    	  (used-mode . typst--markup-mode))
+    	 ("elisp"
+    	  (used-mode . emacs-lisp-mode))
+    	 ("haskell"
+    	  (used-mode . haskell-mode))
+    	 ("matrix"
+    	  (name . "Ement*"))
+    	 ("irc query"
+    	  (used-mode . circe-query-mode))
+    	 ("dired"
+    	  (used-mode . dired-mode))
+    	 ("conf"
+    	  (used-mode . conf-unix-mode))
+    	 ("toml"
+    	  (used-mode . conf-toml-mode))
+    	 ("markdown"
+    	  (used-mode . markdown-mode))
+    	 ("docker-compose"
+    	  (name . "docker-compose"))
+    	 ("message"
+    	  (used-mode . messages-buffer-mode))
+    	 ("magit"
+    	  (name . "magit*"))
+    	 ("special"
+    	  (used-mode . special-mode))
+    	 ("irc"
+    	  (used-mode . circe-channel-mode)))))
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-ibuffer)
+#+end_src
+
+*** init-helpful.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-helpful.el :mkdirp yes
+:END:
+增强的帮助
+**** helpful
+#+begin_src emacs-lisp
+  (use-package helpful
+    :ensure t
+    :defer t
+    :bind
+    ("C-h f" . helpful-callable)
+    ("C-h v" . helpful-variable)
+    ("C-h k" . helpful-key)
+    ("C-h x" . helpful-command)
+  )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-helpful)
+#+end_src
+** 模式配置
+*** init-company.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-company.el :mkdirp yes
+:END:
+~company~ 自动补全
+**** company主体
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t
+    :defer t
+    :hook
+    (prog-mode . company-mode) ; 编程模式启用company-mode
+    :config
+    (setq company-minimum-prefix-length 1) ;;一个字开始补全
+    (setq company-show-quick-access t)
+    (setq company-show-numbers t) ;;显示选项编号
+    )
+#+end_src
+
+**** company-quickhelp
+#+begin_src emacs-lisp
+  ;; 提供上下文帮助
+  (use-package company-quickhelp
+    :ensure t
+    :defer t
+    :hook (company-mode . company-quickhelp-mode)
+    :config
+    (setq company-quickhelp-delay 0.5))  ;; 设置帮助显示延迟
+#+end_src
+**** company拓展
+***** nginx
+#+begin_src emacs-lisp
+  (use-package company-nginx
+    :ensure t
+    :defer t
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-company)
+#+end_src
+*** init-markdown.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-markdown.el :mkdirp yes
+:END:
+markdown
+**** markdown主体
+#+begin_src emacs-lisp
+  ;; 安装 markdown-mode
+  (use-package markdown-mode
+    :ensure t
+    :defer t
+    :mode ("\\.md\\'" "\\.markdown\\'")
+    :commands (markdown-mode gfm-mode)
+    :config
+    (setq markdown-command "pandoc") ;; 可选：使用 pandoc 作为Markdown 渲染工具
+    ;; 配置 Markdown 快捷键
+    (bind-key "C-c C-c" 'markdown-command markdown-mode-map)
+
+    ;; 自定义 Markdown 编辑器行为
+    (setq markdown-fontify-code-blocks-natively t) ;; 高亮代码块
+    (setq markdown-enable-math t) ;; 启用数学公式支持
+    (setq markdown-hide-markup t)) ;; 隐藏标记符
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-markdown)
+#+end_src
+*** init-org.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-org.el :mkdirp yes
+:END:
+*org-mode*
+**** org-appear
+自动展开
+#+begin_src emacs-lisp
+  (use-package org-appear
+    :ensure t
+    :defer t
+    :hook (org-mode . org-appear-mode)
+    :config
+    (setq org-appear-autolinks t)
+    (setq org-appear-autosubmarkers t)
+    (setq org-appear-autoentities t)
+    (setq org-appear-autokeywords t)
+    (setq org-appear-inside-latex t)
+    )
+#+end_src
+**** org-contrib
+#+begin_src emacs-lisp
+  ;; Org mode的附加包，有诸多附加功能
+  (use-package org-contrib
+    :defer t
+    :ensure t)
+#+end_src
+
+**** org-download
+#+begin_src emacs-lisp
+  ;; 粘贴图片到org mode
+  (use-package org-download
+    :ensure t
+    :defer t ;; 延迟加载
+    :bind
+    (:map org-mode-map
+          ("C-M-y" . org-download-clipboard)) ;; 绑定从剪贴版粘贴截图的快捷键
+    :custom
+    (org-download-heading-lvl 1) ;; 用一级标题给截图文件命名
+    :config
+    (setq-default org-download-image-dir "./imgs")) ;; 用同级 ./img 目录放置截图文件
+  (add-hook 'dired-mode-hook 'org-download-enable)
+
+#+end_src
+**** org-fragtog
+#+begin_src emacs-lisp
+  ;; 显示latex公式
+  (use-package org-fragtog
+    :ensure t
+    :defer t
+    :hook
+    (org-mode . org-fragtog-mode)
+    )
+#+end_src
+**** toc-org
+#+begin_src emacs-lisp
+  (use-package toc-org
+    :ensure t
+    :defer t
+    )
+
+  (add-hook 'org-mode-hook 'toc-org-mode)
+  (add-hook 'markdown-mode-hook 'toc-org-mode)
+#+end_src
+
+**** easy-hugo
+#+begin_src emacs-lisp
+  (use-package easy-hugo
+    :ensure t
+    :defer t
+    )
+  (setq easy-hugo-basedir "~/project/donjuan")
+#+end_src
+**** export
+***** ox-gfm
+导出markdown
+#+begin_src emacs-lisp
+  (use-package ox-gfm
+    :ensure t
+    :defer t
+    :after ox)
+#+end_src
+**** insert
+#+begin_src emacs-lisp
+  (global-set-key (kbd "M-o") 'org-insert-structure-template)
+#+end_src
+**** src
+#+begin_src emacs-lisp
+  ;; 代码块高亮
+  (setq org-src-fontify-natively t)
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-org)
+#+end_src
+*** init-polymode.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-polymode.el :mkdirp yes
+:END:
+允许一个buffer的不同区域使用不同major mode
+**** 主体
+#+begin_src emacs-lisp
+  (use-package polymode
+    :defer t
+    :ensure t)
+#+end_src
+**** poly-markdown
+用于markdown的多major-mode 可以在代码块中自动切换mdoe
+#+begin_src emacs-lisp
+  (use-package poly-markdown
+    :defer t
+    :ensure t
+  )
+#+end_src
+**** poly-org
+#+begin_src emacs-lisp
+  (use-package poly-org
+    :defer t
+    :ensure t
+  )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-polymode)
+#+end_src
+*** init-rust.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-rust.el :mkdirp yes
+:END:
+rust模式配置
+**** rust-which-impl
+#+begin_src emacs-lisp
+  (require 'subr-x)
+  (require 'which-func)
+
+  (defcustom rust-impl-search-limit 12000
+    "Maximum characters to scan backward when finding a Rust impl header."
+    :type 'integer
+    :group 'rust)
+
+  (defun rust--same-depth-delimiter-between-p (beg end depth)
+    "Return non-nil if a Rust item delimiter exists between BEG and END.
+Only delimiters at syntax DEPTH are considered."
+    (save-excursion
+      (goto-char beg)
+      (let (found)
+        (while (and (not found) (re-search-forward "[;{}]" end t))
+          (let ((state (syntax-ppss (match-beginning 0))))
+            (when (and (= (car state) depth)
+                       (not (nth 8 state)))
+              (setq found t))))
+        found)))
+
+  (defun rust--impl-keyword-before-brace (brace-pos)
+    "Return the start of the impl keyword whose body starts at BRACE-POS."
+    (let* ((depth (car (syntax-ppss brace-pos)))
+           (limit (max (point-min)
+                       (- brace-pos rust-impl-search-limit)))
+           candidate)
+      (save-excursion
+        (goto-char brace-pos)
+        (while (and (not candidate)
+                    (re-search-backward "\\_<impl\\_>" limit t))
+          (let ((impl-beg (match-beginning 0))
+                (impl-end (match-end 0))
+                (state (syntax-ppss (match-beginning 0))))
+            (when (and (= (car state) depth)
+                       (not (nth 8 state))
+                       (not (rust--same-depth-delimiter-between-p
+                             impl-end brace-pos depth)))
+              (setq candidate impl-beg))))
+        candidate)))
+
+  (defun rust--format-impl-header (impl-pos brace-pos)
+    "Return a compact modeline string for the impl ending at BRACE-POS."
+    (let ((header (buffer-substring-no-properties impl-pos brace-pos)))
+      (setq header (replace-regexp-in-string "\\s-+" " " header))
+      (setq header (replace-regexp-in-string "\\s-+where\\_>.*\\'" "" header))
+      (string-trim header)))
+
+  (defun rust-current-impl ()
+    "Return the Rust impl surrounding point, or nil."
+    (when (derived-mode-p 'rust-mode)
+      (save-excursion
+        (save-restriction
+          (widen)
+          (let ((pos (point))
+                found
+                open)
+            (when (eq (char-after pos) ?{)
+              (when-let ((impl-pos (rust--impl-keyword-before-brace pos)))
+                (setq found (rust--format-impl-header impl-pos pos))))
+            (while (and (not found)
+                        (setq open (nth 1 (syntax-ppss pos))))
+              (when (eq (char-after open) ?{)
+                (when-let ((impl-pos (rust--impl-keyword-before-brace open)))
+                  (setq found (rust--format-impl-header impl-pos open))))
+              (setq pos open))
+            found)))))
+
+  (defun rust-which-impl-setup ()
+    "Show the surrounding Rust impl in `which-function-mode'."
+    (add-hook 'which-func-functions #'rust-current-impl nil t))
+#+end_src
+**** rust-mode
+#+begin_src emacs-lisp
+  (use-package rust-mode
+    :defer t
+    :ensure t
+    :hook (rust-mode . rust-which-impl-setup))
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-rust)
+#+end_src
+
+*** init-python.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-python.el :mkdirp yes
+:END:
+**** python-mode
+#+begin_src emacs-lisp
+  (use-package python-mode
+    :defer t
+    :ensure t
+    :defer t
+    )
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-python)
+#+end_src
+
+*** init-yaml.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-yaml.el :mkdirp yes
+:END:
+
+**** yaml-mode
+#+begin_src emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :defer t
+    )
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-yaml)
+#+end_src
+
+*** init-maxima.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-maxima.el :mkdirp yes
+:END:
+
+**** maxima
+#+begin_src emacs-lisp
+  (use-package maxima
+    :ensure t
+    :defer t
+    ) 
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-maxima)
+#+end_src
+
+*** init-docker.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-docker.el :mkdirp yes
+:END:
+
+**** dockerfile-mode
+#+begin_src emacs-lisp
+  (use-package dockerfile-mode
+    :ensure t
+    :defer t
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-docker)
+#+end_src
+
+*** init-gnuplot.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-gnuplot.el :mkdirp yes
+:END:
+**** gnuplot
+#+begin_src emacs-lisp
+  (use-package gnuplot
+    :ensure t
+    :defer t
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-gnuplot)
+#+end_src
+
+*** init-nov.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-nov.el :mkdirp yes
+:END:
+epub阅读
+**** nov
+#+begin_src emacs-lisp
+  (use-package nov
+    :ensure t
+    :defer t
+    )
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-nov)
+#+end_src
+
+*** init-sphinx.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-sphinx.el :mkdirp yes
+:END:
+文档生成器
+**** sphinx-doc
+#+begin_src emacs-lisp
+  (use-package sphinx-mode
+    :ensure t
+    :defer t
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-sphinx)
+#+end_src
+
+*** init-uniline.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-uniline.el :mkdirp yes
+:END:
+unicode绘图
+**** uniline
+#+begin_src emacs-lisp
+  (use-package uniline
+    :ensure t
+    :defer t
+    )
+
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-uniline)
+#+end_src
+
+*** init-gnus.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-gnus.el :mkdirp yes
+:END:
+GNUS配置
+
+**** gnus
+#+begin_src emacs-lisp
+(use-package gnus
+    :defer t
+    :init
+    ;; 基础信息
+    (setq user-full-name "Donjuanplatinum")
+    (setq user-mail-address "donplat@barrensea.org")
+
+    ;; IMAP 服务器
+    (setq gnus-select-method
+          '(nnimap "barrensea.org"
+                   (nnimap-address "imap.barrensea.org")
+                   (nnimap-server-port 993)
+                   (nnimap-stream ssl)
+                   (nnimap-user "donplat@barrensea.org")
+                   (nnimap-authenticator login)))
+
+    ;; 自定义订阅函数：强制扁平，不设任何 parent
+    (defun my-gnus-subscribe-flat (group)
+      (gnus-group-change-level group
+                               gnus-level-default-subscribed
+                               gnus-level-zombie))
+    (setq gnus-subscribe-newsgroup-method 'my-gnus-subscribe-flat)
+
+    ;; 自动订阅新文件夹
+    (setq gnus-auto-subscribed-groups t)
+
+    ;; 异步
+    (setq gnus-asynchronous t)
+
+    ;; 显示所有级别的组
+    (setq gnus-group-default-list-level 8)
+
+    ;; 归档模式：拉取所有邮件（不只新/未读的）
+    (setq gnus-fetch-old-headers t)    ; 从 IMAP 拉全部 header
+    (setq gnus-large-newsgroup nil)     ; 不限数量
+
+    ;; 进 group 后自动显示全部邮件
+    (add-hook 'gnus-summary-prepared-hook 'gnus-summary-insert-old-articles)
+
+    ;; 附件/大文件不限制
+    (setq mm-large-file-threshold nil)          ; 不限附件大小
+    (setq nnimap-fetch-partial-articles nil)    ; 不截断邮件
+
+    ;; 关闭启动 splash
+    (setq gnus-inhibit-startup-message t))
+
+  ;; SMTP 发件
+  (use-package smtpmail
+    :ensure nil
+    :config
+    (setq smtpmail-smtp-server "smtp.barrensea.org"
+          smtpmail-smtp-service 465
+          smtpmail-stream-type 'ssl
+          smtpmail-smtp-user "donplat@barrensea.org"))
+
+  (setq message-send-mail-function 'smtpmail-send-it)
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-gnus)
+#+end_src
+
+*** init-ein.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ein.el :mkdirp yes
+:END:
+Emacs .ipynb
+**** ein
+#+begin_src emacs-lisp
+  (use-package ein
+    :ensure t
+    :defer t)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-ein)
+#+end_src
+*** init-kotlin.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-kotlin.el :mkdirp yes
+:END:
+**** kotlin
+#+begin_src emacs-lisp
+      (use-package kotlin-mode
+        :ensure t
+        :defer t)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-kotlin)
+#+end_src
+*** init-lean.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-lean.el :mkdirp yes
+:END:
+Lean的主模式
+**** lean
+#+begin_src emacs-lisp
+  (use-package lean4-mode
+    :commands lean4-mode
+    :vc (:url "https://github.com/leanprover-community/lean4-mode.git"
+         :rev :last-release)
+    :defer t
+    :ensure t
+      )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-lean)
+#+end_src
+*** init-dart.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-dart.el :mkdirp yes
+:END:
+Dart的主模式
+**** Dart-mode
+#+begin_src emacs-lisp
+  (use-package dart-mode
+    :defer t
+    :ensure t
+      )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-dart)
+#+end_src
+*** init-ts.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ts.el :mkdirp yes
+:END:
+Typescript
+**** typescript-mode
+#+begin_src emacs-lisp
+      (use-package typescript-mode
+        :ensure t
+        :defer t)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-ts)
+#+end_src
+*** init-vue.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-vue.el :mkdirp yes
+:END:
+**** vue-mode
+#+begin_src emacs-lisp
+      (use-package vue-mode
+        :ensure t
+        :defer t)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-vue)
+#+end_src
+*** init-go.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-go.el :mkdirp yes
+:END:
+go lang mode
+**** go-mode
+#+begin_src emacs-lisp
+      (use-package go-mode
+        :ensure t
+        :defer t)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-go)
+#+end_src
+** 输入法
+*** init-rime.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-rime.el :mkdirp yes
+:END:
+rime输入法 输入法在rime分支
+**** rime主体
+#+begin_src emacs-lisp
+  (use-package rime
+    :ensure t
+    :defer t
+    :custom
+    (default-input-method "rime")
+    (rime-show-candidate 'sidewindow)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-rime)
+#+end_src
+** 窗口配置
+*** init-ace-window.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ace-window.el :mkdirp yes
+:END:
+窗口编号
+**** ace-window主体
+#+begin_src emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :defer t
+    :bind
+    ("C-x o" . ace-window)
+    )
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-ace-window)
+#+end_src
+
+*** init-treemacs.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-treemacs.el :mkdirp yes
+:END:
+
+**** treemacs
+#+begin_src emacs-lisp
+  (use-package all-the-icons
+    :defer t
+    :ensure t)
+  (use-package treemacs
+    :ensure t
+    :defer t
+    :config
+    (treemacs-tag-follow-mode)
+    :bind
+    (:map global-map
+  	("M-\-" . treemacs-select-window)
+  	("C-x t 1" . treemacs-delete-other-windows)
+  	("C-x t t" . treemacs)
+  	("C-x t B" . treemacs-bookmark)
+  	("C-x t M-t" . treemacs-find-tag)
+  	)
+    (:map treemacs-mode-map
+  	("/" . treemacs-advanced-helpful-hydra)
+  	)
+    )
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-treemacs)
+#+end_src
+
+*** init-battery.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-battery.el :mkdirp yes
+:END:
+电池状态
+**** battery
+#+begin_src emacs-lisp
+  (use-package battery
+    :defer t
+    :hook (after-init . display-battery-mode)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-battery)
+#+end_src
+
+*** init-zoom.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-zoom.el :mkdirp yes
+:END:
+强制固定和自动平衡布局来管理窗口大小，其中当前选定的窗口根据zoom-size其调整大小
+**** zoom
+#+begin_src emacs-lisp
+  ;; (use-package zoom
+  ;;   :ensure t
+  ;;   :defer t)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-zoom)
+#+end_src
+
+*** init-windsize.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-windsize.el :mkdirp yes
+:END:
+**** windsize
+#+begin_src emacs-lisp
+  (use-package windsize
+    :ensure t
+    :defer t
+    :bind
+    ("C-SPC p" . windsize-up)
+    ("C-SPC n" . windsize-down)
+    ("C-SPC f" . windsize-right)
+    ("C-SPC b" . windsize-left)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-windsize)
+#+end_src
+** 功能配置
+*** init-embark.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-embark.el :mkdirp yes
+:END:
+~embak~
+
+类似右键菜单 可以对当前的对象进行一些自定义的操作
+**** marginalia
+#+begin_src emacs-lisp
+  (use-package marginalia
+    :ensure t
+    :defer t
+    :config
+    (marginalia-mode))
+
+#+end_src
+**** embark主体
+#+begin_src emacs-lisp
+  
+  (use-package embark
+    :ensure t
+    :defer t
+    :bind
+    (("C-." . embark-act)         ;; pick some comfortable binding
+     ("C-;" . embark-dwim)        ;; good alternative: M-.
+     ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+    :init
+
+    ;; Optionally replace the key help with a completing-read interface
+    ;;  (setq prefix-help-command #'embark-prefix-help-command)
+
+    ;; Show the Embark target at point via Eldoc. You may adjust the
+    ;; Eldoc strategy, if you want to see the documentation from
+    ;; multiple providers. Beware that using this can be a little
+    ;; jarring since the message shown in the minibuffer can be more
+    ;; than one line, causing the modeline to move up and down:
+
+    ;; (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+    ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+    :config
+
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list 'display-buffer-alist
+  	       '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+  		 nil
+  		 (window-parameters (mode-line-format . none)))))
+
+
+#+end_src
+**** 动作配置
+#+begin_src emacs-lisp
+      
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-embark)
+#+end_src
+
+*** init-whichkey.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-whichkey.el :mkdirp yes
+:END:
+**** whichkey
+显示快捷键
+#+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :defer t
+    :init (which-key-mode)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-whichkey)
+#+end_src
+
+*** init-undo-tree.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-undo-tree.el :mkdirp yes
+:END:
+undotree回溯
+
+**** undo-tree
+#+begin_src emacs-lisp
+  (use-package undo-tree
+    :ensure t
+    :hook (after-init . global-undo-tree-mode)
+    :defer t
+    :config
+    ;; don't save undo history to local files
+    (setq undo-tree-auto-save-history nil)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-undo-tree)
+#+end_src
+
+*** init-crux.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-crux.el :mkdirp yes
+:END:
+移动增强 删除增强等
+**** crux
+#+begin_src emacs-lisp
+   (use-package crux
+     :ensure t
+     :defer t
+     :bind (("C-a" . crux-move-beginning-of-line)
+   	 ("C-x 4 t" . crux-transpose-windows)
+   	 ("C-x K" . crux-kill-other-buffers)
+   	 ("C-k" . crux-smart-kill-line)
+   	 ("C-x DEL" . crux-kill-line-backwards))
+     :config
+     (crux-with-region-or-buffer indent-region)
+     (crux-with-region-or-buffer untabify)
+     (crux-with-region-or-point-to-eol kill-ring-save)
+     (defalias 'rename-file-and-buffer #'crux-rename-file-and-buffer))  
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-crux)
+#+end_src
+
+*** init-keycast.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-keycast.el :mkdirp yes
+:END:
+按键显示到状态栏
+**** keycast
+#+begin_src emacs-lisp
+  (use-package keycast
+    :ensure t
+    :defer 3
+    :config
+    (progn
+      (add-to-list 'global-mode-string '("" keycast-mode-line))
+      (keycast-header-line-mode t))
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-keycast)
+#+end_src
+
+*** init-tramp.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-tramp.el :mkdirp yes
+:END:
+**** tramp
+#+begin_src emacs-lisp
+  (use-package tramp
+    :ensure t
+    :defer t
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-tramp)
+#+end_src
+*** init-aria2.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-aria2.el :mkdirp yes
+:END:
+aria2控制
+**** aria2
+#+begin_src emacs-lisp
+  (use-package aria2
+    :ensure t
+    :defer t
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-aria2)
+#+end_src
+*** init-hydra.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-hydra.el :mkdirp yes
+:END:
+hydra快捷键管理
+**** hydra
+#+begin_src emacs-lisp
+  (use-package hydra
+    :ensure t
+    :defer t
+    )
+#+end_src
+**** hydra_navi
+#+begin_src emacs-lisp
+  (defhydra hydra-navigation (:color red)
+    "
+    _p_/_k_: Up (C-p)             _h_: Back (C-b)         _a_: Home (C-a)  _G_: End of Buffer (M->)
+    _l_: Forward (C-f)            _n_/_j_: Down (C-n)     _e_: End (C-e)   _G_: Beginning of Buffer (M-<)
+    _v_: Scroll Up (C-v)          _V_: Scroll Down (M-v)  _t_: Show Unicode _o_: ace-window
+    _/_: undo (C-/)               _f_: Forward Word (M-f) _b_: Backward Word (M-b) _r_: set-mark-command
+    _w_: kill-ring-save (M-w)     _y_: yank (M-y)         _x_: delete-char (C-d)
+    "
+
+    ("p" previous-line)
+    ("k" previous-line)
+    
+    ("b" backward-word)
+    ("h" backward-char)
+    
+    ("f" forward-word)
+    ("l" forward-char)
+    
+    ("n" next-line)
+    ("j" next-line)
+    
+    ("a" move-beginning-of-line)
+    ("e" move-end-of-line)
+
+    ("g" beginning-of-buffer)
+    ("G" end-of-buffer)
+
+    ("v" scroll-up-command)
+    ("V" scroll-down-command)
+
+    ("t" show-unicode-at-point-details)
+
+    ("o" ace-window)
+
+    ("/" undo-tree-undo)
+
+    ("r" set-mark-command)
+    ("w" kill-ring-save)
+    ("y" yank)
+    ("x" delete-char)
+    
+    ("q" nil "quit")
+    )
+  (global-set-key (kbd "C-t") 'hydra-navigation/body)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-hydra)
+#+end_src
+*** init-smex.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-smex.el :mkdirp yes
+:END:
+M-x的增強
+**** smex
+#+begin_src emacs-lisp
+  (use-package smex
+    :ensure t
+    :defer t
+    :bind
+    ("M-x" . smex)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-smex)
+#+end_src
+
+*** init-beacon.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-beacon.el :mkdirp yes
+:END:
+翻页时高亮光标
+**** beacon
+#+begin_src emacs-lisp
+  (use-package beacon
+    :ensure t
+    :defer 1
+    :config
+    (beacon-mode 1)
+  )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-beacon)
+#+end_src
+*** init-anzu.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-anzu.el :mkdirp yes
+:END:
+显示匹配统计
+**** anzu
+#+begin_src emacs-lisp
+  (use-package anzu
+    :ensure t
+    :defer 1
+    :config
+    (global-anzu-mode +1))
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-anzu)
+#+end_src
+*** init-ivy.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ivy.el :mkdirp yes
+:END:
+Ivy框架
+**** counsel
+#+begin_src emacs-lisp
+  (use-package counsel
+    :ensure t
+    :defer t)
+#+end_src
+**** ivy
+#+begin_src emacs-lisp
+  (use-package ivy
+    :ensure t
+    :defer t
+    :init
+    (ivy-mode 1)
+    (counsel-mode 1)
+    :custom
+    (ivy-use-virtual-buffers t) ; 显示最近访问的文件
+    (ivy-count-format "(%d/%d) ") ; 搜索计数的格式
+    (ivy-wrap t) ; 让ivy候选列表变为环状
+    :bind
+    (
+     ("C-r" . 'swiper)
+     ("C-s" . 'swiper)
+     ("C-x b" . 'ivy-switch-buffer)
+     :map minibuffer-local-map
+     ("C-r" . counsel-minibuffer-histroy)
+     )
+    )
+#+end_src  
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-ivy)
+#+end_src
+# *** init-vertico.el
+# :PROPERTIES:
+# :HEADER-ARGS: :tangle lisp/init-vertico.el :mkdirp yes
+# :END:
+# Emacs内置补全的增强
+# **** vertico
+# #+begin_src emacs-lisp
+#   ;; (use-package vertico
+#   ;;   :defer t
+#   ;;   :ensure t
+#   ;;   :custom
+#   ;;   (vertico-cycle t) ; 使补全的轮询成环状
+#   ;;   :init(vertico-mode))
+#   (use-package orderless
+#   :ensure t
+#   :custom
+#   (completion-styles '(orderless basic))
+#   (completion-category-overrides '((file (styles partial-completion))))
+#   (completion-pcm-leading-wildcard t))
+# #+end_src
+# **** provide
+# #+begin_src emacs-lisp
+#   (provide 'init-vertico)
+# #+end_src
+*** init-yasnippet.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-yasnippet.el :mkdirp yes
+:END:
+结构展开
+**** yasnippet
+#+begin_src emacs-lisp
+(use-package yasnippet
+  :ensure t
+  :defer t
+  :config
+  (setq yas-snippet-dirs
+        (list (expand-file-name "snippets" user-emacs-directory)))  ;; 拼接路径并将其放入列表
+  (yas-global-mode 1))
+#+end_src
+**** auto-yasnippet
+#+begin_src emacs-lisp
+      (use-package auto-yasnippet
+        :ensure t
+        :defer t)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-yasnippet)
+#+end_src
+*** init-dumb-jump.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-dumb-jump.el :mkdirp yes
+:END:
+利用基于正则表达式(rg,ag,grep)的Emacs跳转工具 无需lsp
+
+**** dumb-jump
+#+begin_src emacs-lisp
+  (use-package dumb-jump
+  :ensure t
+  :defer t
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g b" . dumb-jump-back))
+  :custom
+  ;; 强制使用 grep，跳过 rg/ag 的探测逻辑
+  (dumb-jump-force-searcher 'grep)
+
+  (dumb-jump-project-denylist '(".git" "node_modules" "target" "obj"))
+
+  :config
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate))
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-dumb-jump)
+#+end_src
+** 终端
+*** init-shell.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-shell.el :mkdirp yes
+:END:
+终端相关配置
+**** emacs-eat
+#+begin_src emacs-lisp
+  (use-package eat
+    :ensure t
+    :defer t
+  )
+#+end_src
+**** shell-pop
+#+begin_src emacs-lisp
+  (use-package shell-pop
+    :ensure t
+    :defer t
+    :config
+    (setq shell-pop-shell-type (quote ("eat" "*eat*" (lambda nil (eat shell-pop-term-shell)))))
+    (setq shell-pop-term-shell "/bin/bash")
+    :bind
+    ("C-`" . shell-pop)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-shell)
+#+end_src
+
+** git配置
+*** init-git.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-git.el :mkdirp yes
+:END:
+~git~
+**** magit
+git管理器
+#+begin_src emacs-lisp
+  (use-package magit
+    :defer t
+    :ensure t)
+#+end_src
+**** git-gutter
+git状态显示
+#+begin_src emacs-lisp
+  (use-package git-gutter
+    :defer 5
+    :ensure t
+    :config (global-git-gutter-mode +1))
+#+end_src
+**** blamer
+git提交显示
+#+begin_src emacs-lisp
+  (use-package blamer
+    :ensure t
+    :defer 5
+    :custom
+    (blamer-idle-time 2) ; 延迟时间
+    (blamer-min-offset 70)
+    :custom-face
+    (blamer-face ((t :foreground "#7a88cf"
+  		   :background nil
+  		   :height 100
+  		   :italic t)))
+    :config
+    (global-blamer-mode 1))
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-git)
+#+end_src
+** 外观
+*** init-theme.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-theme.el :mkdirp yes
+:END:
+主题设置
+**** kaolin-themes
+#+begin_src emacs-lisp
+  ;; (use-package kaolin-themes
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'kaolin-dark t)
+  ;;   (kaolin-treemacs-theme))
+#+end_src
+**** atom-dark
+#+begin_src emacs-lisp
+  ;; (use-package atom-dark-theme
+  ;;    :ensure t
+  ;;    :config
+  ;;    (load-theme 'atom-dark t)
+  ;;    )
+#+end_src
+**** modus
+#+begin_src emacs-lisp
+  (use-package modus-themes
+    :ensure t
+    :config
+    (load-theme 'modus-vivendi-tinted t)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-theme)
+#+end_src
+
+
+
+*** init-rainbow.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-rainbow.el :mkdirp yes
+:END:
+彩虹括号
+**** rainbow
+#+begin_src emacs-lisp
+  (use-package rainbow-delimiters
+    :ensure t
+    :defer 5
+    :hook (prog-mode . rainbow-delimiters-mode))
+#+end_src
+
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-rainbow)
+#+end_src
+
+*** init-dashboard.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-dashboard.el :mkdirp yes
+:END:
+启动面板
+
+**** dashboard
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook)
+
+    )
+#+end_src
+
+**** banner
+#+begin_src emacs-lisp
+  (setq dashboard-banner-logo-title "DonjuanPlatinum")
+  (setq dashboard-startup-banner "~/.emacs.d/img/donjuan.png")
+  (setq dashboard-image-banner-max-height 160)
+  (setq dashboard-image-banner-max-width 320)
+  (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
+#+end_src
+**** dashboard-items
+#+begin_src emacs-lisp
+  (setq dashboard-items '(
+  			(recents . 5)
+  			(projects . 5)
+  			))
+#+end_src
+
+**** dashboard-item-shortcuts
+#+begin_src emacs-lisp
+  (setq dashboard-item-shortcuts '((recents . "r")
+  				 (projects . "p")
+  				 ))
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-dashboard)
+#+end_src
+** 游戏
+*** init-game.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-game.el :mkdirp yes
+:END:
+游戏
+**** 2048
+#+begin_src emacs-lisp
+  (use-package 2048-game
+    :ensure t
+    :defer t)
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-game)
+#+end_src
+** ai
+
+
+*** init-aider.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-aider.el :mkdirp yes
+:END:
+AI工具
+**** provide
+#+begin_src emacs-lisp
+  ;; (use-package aidermacs
+  ;;   :ensure t
+  ;;   :defer t
+  ;;   :bind (
+  ;; 	 ("C-c a" . aidermacs-transient-menu)
+  ;; 	 )
+  ;;   )
+#+end_src
+*** init-ai.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-ai.el :mkdirp yes
+:END:
+**** gpt-el
+#+begin_src emacs-lisp
+  ;; (use-package gptel
+  ;;   :ensure t
+  ;;   :defer t
+  ;;   :config
+    
+  ;;   (setq gptel-curl-extra-args '("--proxy" "http://127.0.0.1:12334"))
+  ;;   (setq gptel-directives
+  ;;       '((ide-agent . "你是一个专业的 Emacs IDE Agent。请你使用中文回复。")))
+  ;;   ;; (setq
+  ;;   ;;  gptel-model 'gemini-flash-latest
+  ;;   ;;  gptel-backend (gptel-make-gemini "Gemini"
+  ;;   ;;                  :key (lambda ()
+  ;;   ;;                         (let ((key-path (expand-file-name "gptel-api" user-emacs-directory)))
+  ;;   ;;                           (if (file-exists-p key-path)
+  ;;   ;;                               (with-temp-buffer
+  ;;   ;;                                 (insert-file-contents key-path)
+  ;;   ;;                                 (string-trim (buffer-string)))
+  ;;   ;;                             (message "警告：找不到 API Key 文件 %s" key-path)
+  ;;   ;;                             nil)))
+  ;;   ;;                  :stream t))
+  ;;   (setq
+  ;;    gptel-model 'deepseek-reasoner
+  ;;    gptel-backend (gptel-make-deepseek "DeepSeek"
+  ;;                     :key (lambda ()
+  ;;                           (let ((key-path (expand-file-name "gptel-api" user-emacs-directory)))
+  ;;                             (if (file-exists-p key-path)
+  ;;                                 (with-temp-buffer
+  ;;                                   (insert-file-contents key-path)
+  ;;                                   (string-trim (buffer-string)))
+  ;;                               (message "警告：找不到 API Key 文件 %s" key-path)
+  ;;                               nil)))
+  ;;                    :stream t))
+  ;;   )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-ai)
+#+end_src
+*** init-mcp.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-mcp.el :mkdirp yes
+:END:
+Emacs的MCP Client
+**** mcp.el
+#+begin_src emacs-lisp
+  ;; (use-package mcp
+  ;; :ensure t
+  ;; :defer t
+  ;; :custom (mcp-hub-servers
+  ;;          `(("filesystem" . (:command "podman" 
+  ;; 				     :args ("run"
+  ;; 					    "-i"
+  ;; 					    "--rm"
+  ;; 					    "-p" "5566:5566"
+  ;; 					    "--mount" "type=bind,src=/home/donjuan/git,dst=/projects/git"
+  ;; 					    "docker.io/mcp/filesystem"
+  ;; 					    "--root" "/projects"
+  ;; 					    "--transport" "http" "--port" "5566"
+  ;; 				    )
+  ;; 				     :url "http://127.0.0.1:5566"
+  ;;                             ))
+  ;;        )
+  ;;      )
+  ;; :config
+  ;; (require 'mcp-hub)
+  ;; (require 'gptel-integrations)
+  ;; :hook (after-init . mcp-hub-start-all-server))
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-mcp)
+#+end_src
+
+* site-lisp
+** 
+
+
+
