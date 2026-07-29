@@ -151,14 +151,16 @@ _v_: Scroll Up (C-v)     _V_: Scroll Down (M-v)
     (require 'init-kotlin)
     ;; Lean
   ;  (require 'init-lean)
+    ;; coq
+    (require 'init-coq)
     ;; Dart
     (require 'init-dart)
     ;; TS
     (require 'init-ts)
     ;; vue
-  (require 'init-vue)
-  ;; polymode
-  (require 'init-polymode)
+    (require 'init-vue)
+    ;; polymode
+    (require 'init-polymode)
 #+end_src
 *** 功能
 #+begin_src emacs-lisp
@@ -1001,6 +1003,44 @@ go lang mode
 #+begin_src emacs-lisp
   (provide 'init-go)
 #+end_src
+*** init-coq.el
+:PROPERTIES:
+:HEADER-ARGS: :tangle lisp/init-coq.el :mkdirp yes
+:END:
+Coq形式化证明
+**** Proof General
+发展多年的Emacs证明助手界面
+#+begin_src emacs-lisp
+  (use-package proof-general
+    :ensure t
+    :defer t
+    :mode ("\\.v\\'" . coq-mode)
+    :custom
+    ; 三窗口模式
+    (proof-three-window-mode-policy 'hybrid)
+    ; 输入 `.` 自动发送证明命令
+    (proof-eletric-terminator-enable t)
+    :hook
+    ; 将公式等显示为数学符号
+    (coq-mode . prettify-symbols-mode)
+    )
+
+#+end_src
+**** Company-Coq
+Coq的company拓展
+
+#+begin_src emacs-lisp
+  (use-package company-coq
+    :ensure t
+    :defer t
+    :hook
+    (coq-mode . company-coq-mode)
+    )
+#+end_src
+**** provide
+#+begin_src emacs-lisp
+  (provide 'init-coq)
+#+end_src
 ** 输入法
 *** init-rime.el
 :PROPERTIES:
@@ -1822,7 +1862,6 @@ Emacs的MCP Client
 #+end_src
 
 * site-lisp
-** 
 
 
 

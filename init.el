@@ -87,14 +87,16 @@
   (require 'init-kotlin)
   ;; Lean
 ;  (require 'init-lean)
+  ;; coq
+  (require 'init-coq)
   ;; Dart
   (require 'init-dart)
   ;; TS
   (require 'init-ts)
   ;; vue
-(require 'init-vue)
-;; polymode
-(require 'init-polymode)
+  (require 'init-vue)
+  ;; polymode
+  (require 'init-polymode)
 
 ;; embark
 (require 'init-embark)
