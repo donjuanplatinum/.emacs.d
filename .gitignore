@@ -109,10 +109,10 @@ vimish-fold/
 smex-items
 
 # for elisp
-site-lisp
-lisp
-init.el
-custom.el
+#site-lisp
+#lisp
+#init.el
+#custom.el
 # request
 request
 
