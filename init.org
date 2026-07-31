@@ -27,6 +27,20 @@ _v_: Scroll Up (C-v)     _V_: Scroll Down (M-v)
 | C-` | 弹出终端 |
 ** magit
 | C-x g | magit-status |
+** Coq
+预装了 ~proof-general~ 与 ~company-coq~. 下面是介绍
+
+*** 自动补全
+
+- tatic 自动补全: TAB
+- lemma 自动补全
+- TeX输入: 输入TeX按RET
+- Outline: ~C-c C-,~
+- 自动抽取lemma: ~C-c C-a C-x~
+*** 执行验证
+| C-c C-n | 执行一行       |
+| C-c RET | 执行到光标所在行 |
+| C-c C-u | 回退            |
 * init.el
 :PROPERTIES:
 :HEADER-ARGS: :tangle init.el
@@ -1035,6 +1049,11 @@ Coq的company拓展
     :defer t
     :hook
     (coq-mode . company-coq-mode)
+    :config
+    ;; 移除 dabbrev 后端,防止漏出其他 buffer 的符号
+    (defun my/company-coq-backends ()
+    (setq-local company-backends '((company-coq company-capf company-files))))
+  (add-hook 'coq-mode-hook #'my/company-coq-backends)
     )
 #+end_src
 **** provide

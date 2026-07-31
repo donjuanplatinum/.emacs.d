@@ -17,6 +17,11 @@
   :defer t
   :hook
   (coq-mode . company-coq-mode)
+  :config
+  ;; 移除 dabbrev 后端,防止漏出其他 buffer 的符号
+  (defun my/company-coq-backends ()
+  (setq-local company-backends '((company-coq company-capf company-files))))
+(add-hook 'coq-mode-hook #'my/company-coq-backends)
   )
 
 (provide 'init-coq)
