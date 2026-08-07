@@ -2,6 +2,8 @@
 (global-set-key (kbd "C-c r") 'set-mark-command)
 ;; 矩形操作
 (global-set-key (kbd "C-c m") 'rectangle-mark-mode)
+;; flymake列出所有诊断
+(global-set-key (kbd "M-o l") 'flymake-show-project-diagnostics)
 
 ;; 自动替换选择区内容
 (delete-selection-mode 1)

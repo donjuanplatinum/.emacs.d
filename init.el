@@ -1,5 +1,8 @@
-(desktop-save-mode 1)
-(setq desktop-auto-save-timeout 60)
+;; (setq desktop-auto-save-timeout 60)
+;; (add-hook 'emacs-startup-hook
+;;           (lambda ()
+;;             (desktop-save-mode 1)
+;;             (desktop-read)))
 
 ;; 启动时高阈值
 (setq gc-cons-threshold (* 128 1024 1024))
@@ -49,54 +52,54 @@
 (require 'init-rime)
 
 (require 'init-org)
-  ;; org-mode
-  ;; markdown-mode
-  (require 'init-markdown)
+;; org-mode
+;; markdown-mode
+(require 'init-markdown)
 
-  ;; rust
-  (require 'init-rust)
+;; rust
+(require 'init-rust)
 
-  ;; python
-  (require 'init-python)
+;; python
+(require 'init-python)
 
-  ;; yaml
-  (require 'init-yaml)
+;; yaml
+(require 'init-yaml)
 
-  ;; maxima
-  (require 'init-maxima)
+;; maxima
+(require 'init-maxima)
 
-  ;; docker
-  (require 'init-docker)
+;; docker
+(require 'init-docker)
 
-  ;; gnuplot
-  (require 'init-gnuplot)
+;; gnuplot
+(require 'init-gnuplot)
 
-  ;; nov
-  (require 'init-nov)
+;; nov
+(require 'init-nov)
 
-  ;; sphinx
-  (require 'init-sphinx)
+;; sphinx
+(require 'init-sphinx)
 
-  ;; uniline
-  (require 'init-uniline)
+;; uniline
+(require 'init-uniline)
 
-  ;; ein
-  (require 'init-ein)
+;; ein
+(require 'init-ein)
 
-  ;; kotlin
-  (require 'init-kotlin)
-  ;; Lean
-;  (require 'init-lean)
-  ;; coq
-  (require 'init-coq)
-  ;; Dart
-  (require 'init-dart)
-  ;; TS
-  (require 'init-ts)
-  ;; vue
-  (require 'init-vue)
-  ;; polymode
-  (require 'init-polymode)
+;; kotlin
+(require 'init-kotlin)
+;; Lean
+(require 'init-lean)
+;; coq
+(require 'init-coq)
+;; Dart
+(require 'init-dart)
+;; TS
+(require 'init-ts)
+;; vue
+(require 'init-vue)
+;; polymode
+(require 'init-polymode)
 
 ;; embark
 (require 'init-embark)

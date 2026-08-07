@@ -55,7 +55,7 @@
   :defer t
   :after ox)
 
-(global-set-key (kbd "M-o") 'org-insert-structure-template)
+(global-set-key (kbd "M-o o") 'org-insert-structure-template)
 
 ;; 代码块高亮
 (setq org-src-fontify-natively t)

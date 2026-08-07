@@ -4,8 +4,6 @@
 #+DATE: 2024/6/22
 #+STARTUP: overview
 * key
-** flycheck
-| C-c C-c l | flycheck-list-errors | 显示错误列表 |
 ** basic
 | C-c r | set-mark-command    | 选中    |
 | C-c m | rectangle-mark-mode | 矩形选中 |
@@ -15,7 +13,7 @@
 | M ? | xref-find-references  | 列出所有的引用      |
 
 ** org
-| M-o | 'org-insert-structure-template | 快速插入代码块 |
+| M-o o | 'org-insert-structure-template | 快速插入代码块 |
 ** hydra
 Hydra加入了移动方式 ~C-t~
 #+begin_src emacs-lisp
@@ -46,6 +44,43 @@ _v_: Scroll Up (C-v)     _V_: Scroll Down (M-v)
 
 *** markdown-mode
 在 ~markdown-mode~ ~org-mode~ 中 若匹配到 $$$$$$$$$$ $$$$ 可以使用C-.补全bmatrix等Latex公式.
+** gnus
+~M-x gnus~ 启动gnus
+| g       | 刷新新邮件                       |
+| M-g     | 刷新邮件组                       |
+| l       | 列出默认组(显示未读)               |
+| L       | 列出所有组(查看所有邮件 包括已读邮件) |
+| C-u RET | 进入并显示已读邮件                 |
+| m       | 写邮件                           |
+| q       | 退出                            |
+| n/p     | 上/下一封                        |
+| r/R     | 回复个人                         |
+| f/F     | 回复邮件列表                      |
+| d       | 标记已读                         |
+| c       | 标记未读                         |
+| \#      | 进程标记                         |
+| ?       | 暂时保留                         |
+| \!      | 标记为重要                       |
+| B m     | 移动邮件                         |
+| B DEL   | 删除邮件 不移动到Trash             |
+| M-u     | 清除! ?等标记                    |
+| / a     | 按作者搜索                       |
+| / s     | 按主题搜索                       |
+| / b     | 按正文搜索                       |
+| \^      | 回到Group buffer                |
+| u       | 更新当前组                           |
+
+*** 邮件标识
+| r. | 已读 |
+| o  | 已读 |
+** flymake
+| C-;     |             |
+| M-g p/n | 上/下一个错误 |
+| M-o l   | 列出所有诊断      |
+** mail
+| C-x m   | 进入邮件mail-mode |
+| C-c C-a | 添加附件             |
+
 * init.el
 :PROPERTIES:
 :HEADER-ARGS: :tangle init.el
@@ -53,8 +88,11 @@ _v_: Scroll Up (C-v)     _V_: Scroll Down (M-v)
 =init.el=
 ** desktop-save
 #+begin_src emacs-lisp
-  (desktop-save-mode 1)
-  (setq desktop-auto-save-timeout 60)
+  ;; (setq desktop-auto-save-timeout 60)
+  ;; (add-hook 'emacs-startup-hook
+  ;;           (lambda ()
+  ;;             (desktop-save-mode 1)
+  ;;             (desktop-read)))
 #+end_src
 ** GC (垃圾回收)
 启动时调大阈值，避免频繁 GC 拖慢启动。启动后恢复合理值，让 GC 频繁但无感运行。
@@ -169,7 +207,7 @@ _v_: Scroll Up (C-v)     _V_: Scroll Down (M-v)
     ;; kotlin
     (require 'init-kotlin)
     ;; Lean
-  ;  (require 'init-lean)
+    (require 'init-lean)
     ;; coq
     (require 'init-coq)
     ;; Dart
@@ -296,6 +334,8 @@ _v_: Scroll Up (C-v)     _V_: Scroll Down (M-v)
   (global-set-key (kbd "C-c r") 'set-mark-command)
   ;; 矩形操作
   (global-set-key (kbd "C-c m") 'rectangle-mark-mode)
+  ;; flymake列出所有诊断
+  (global-set-key (kbd "M-o l") 'flymake-show-project-diagnostics)
 #+end_src
 **** 习惯更改
 #+begin_src emacs-lisp
@@ -560,7 +600,7 @@ markdown
 #+end_src
 **** insert
 #+begin_src emacs-lisp
-  (global-set-key (kbd "M-o") 'org-insert-structure-template)
+  (global-set-key (kbd "M-o o") 'org-insert-structure-template)
 #+end_src
 **** src
 #+begin_src emacs-lisp
@@ -954,6 +994,9 @@ Lean的主模式
     :commands lean4-mode
     :vc (:url "https://github.com/leanprover-community/lean4-mode.git"
          :rev :last-release)
+    :hook
+    (lean4-mode . (lambda ()
+                    (setq default-input-method "rime")))
     :defer t
     :ensure t
       )
@@ -1971,6 +2014,5 @@ Emacs的MCP Client
 #+end_src
 
 * site-lisp
-
 
 

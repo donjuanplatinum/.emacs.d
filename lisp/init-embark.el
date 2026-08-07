@@ -7,6 +7,7 @@
 (require 'subr-x)
 
 (defun latex--paragraph-bounds ()
+  "Return paragraph distance"
   (cons (save-excursion
           (backward-paragraph)
           (point))
